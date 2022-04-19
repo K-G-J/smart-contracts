@@ -24,7 +24,7 @@ contract Hab3 {
     }
 
     mapping(uint256 => Goal) private idToGoal;
-    mapping (address => Goal) private userGoals;
+    mapping (address => Goal[]) private userGoals;
 
     constructor() {
         // mint tokens 
@@ -34,15 +34,11 @@ contract Hab3 {
         goalIds.increment();
         uint256 newGoalId = goalIds.current();
         uint256 stepAmount = _steps.length;
-        Step[] storage _goalSteps = new Step[](stepAmount);
         for (uint i = 0; i < stepAmount; i ++) {
-            _goalSteps.push(Step({
-                id: i + 1,
-                step: _steps[i],
-                completed: false
-            }));
+            idToGoal[newGoalId].steps.push(Step(i+1, _steps[i], false));
         }
-        idToGoal[newGoalId] = Goal(_goal, false, block.timestamp, _goalSteps);
-        userGoals[msg.sender] = idToGoal[newGoalId];
+        idToGoal[newGoalId].goal = _goal;
+        idToGoal[newGoalId].createdAt = block.timestamp;
+        userGoals[msg.sender].push(idToGoal[newGoalId]);
     }
 }
