@@ -36,14 +36,13 @@ contract Hab3 {
         uint256 stepAmount = _steps.length;
         Step[] storage _goalSteps = new Step[](stepAmount);
         for (uint i = 0; i < stepAmount; i ++) {
-            _goalSteps[i] = Step({
+            _goalSteps.push(Step({
                 id: i + 1,
                 step: _steps[i],
                 completed: false
-            });
+            }));
         }
         idToGoal[newGoalId] = Goal(_goal, false, block.timestamp, _goalSteps);
-        Goal memory newGoal = idToGoal[newGoalId];
-        userGoals[msg.sender] = newGoal;
+        userGoals[msg.sender] = idToGoal[newGoalId];
     }
 }
