@@ -18,6 +18,7 @@ contract Hab3 {
     }
 
     struct Step {
+        uint256 id;
         string step;
         bool completed;
     }
@@ -29,13 +30,14 @@ contract Hab3 {
         // mint tokens 
     }
 
-    function setGoal (string memory _goal, string[] memory _steps) public payable {
+    function setGoal (string calldata _goal, string[] calldata _steps) public payable {
         goalIds.increment();
         uint256 newGoalId = goalIds.current();
-        uint256 stepAmmount = _steps.length;
-        Step[] memory _goalSteps = new Step[](stepAmmount);
-        for (uint i = 0; i < stepAmmount; i ++) {
+        uint256 stepAmount = _steps.length;
+        Step[] storage _goalSteps = new Step[](stepAmount);
+        for (uint i = 0; i < stepAmount; i ++) {
             _goalSteps[i] = Step({
+                id: i + 1,
                 step: _steps[i],
                 completed: false
             });
