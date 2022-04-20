@@ -85,11 +85,10 @@ contract Hab3 {
 
     function completeGoal(uint _goalId) public payable {
         idToGoal[_goalId].completed = true;
-        /* some type of token reward */
-        Goal[] storage goalArr = userGoals[msg.sender]; 
-        for(uint i = 0; i < goalArr.length; i ++) {
-            if(goalArr[i].id == _goalId) {
-                goalArr[i].completed = true;
+        /* some type of token reward */ 
+        for(uint i = 0; i < userGoals[msg.sender].length; i ++) {
+            if(userGoals[msg.sender][i].id == _goalId) {
+                userGoals[msg.sender][i].completed = true;
             }
         }
         emit GoalCompleted(_goalId, msg.sender, idToGoal[_goalId].goal, block.timestamp);
