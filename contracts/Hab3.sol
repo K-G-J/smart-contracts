@@ -11,6 +11,7 @@ contract Hab3 {
     Counters.Counter private goalIds;
 
     struct Goal {
+        uint256 id;
         string goal;
         bool completed;
         uint createdAt;
@@ -26,10 +27,10 @@ contract Hab3 {
     mapping(uint256 => Goal) private idToGoal;
     mapping (address => Goal[]) private userGoals;
 
-    event GoalAdded(address user, string goal, uint time);
-    event StepAdded(address user, string step, uint time);
-    event StepCompleted(address user, string step, uint time);
-    event GoalCompleted(address user, string goal, uint time);
+    event GoalAdded(uint256 indexed id, address user, string goal, uint time);
+    event StepAdded(uint256 indexed goalId, address user, string step, uint time);
+    event StepCompleted(uint256 indexed goalId, address user, string step, uint time);
+    event GoalCompleted(uint256 indexed id, address user, string goal, uint time);
 
     constructor() {
         /* mint tokens */
@@ -43,16 +44,22 @@ contract Hab3 {
         for (uint i = 0; i < stepAmount; i ++) {
             idToGoal[newGoalId].steps.push(Step(i+1, _steps[i], false));
         }
+        idToGoal[newGoalId].id = newGoalId;
         idToGoal[newGoalId].goal = _goal;
         idToGoal[newGoalId].createdAt = block.timestamp;
         userGoals[msg.sender].push(idToGoal[newGoalId]);
-        emit GoalAdded(msg.sender, _goal, block.timestamp);
+        emit GoalAdded(newGoalId, msg.sender, _goal, block.timestamp);
     }
 
     function addStep (uint _goalId, string calldata _step) public payable {
         uint stepCount = idToGoal[_goalId].steps.length;
         idToGoal[_goalId].steps.push(Step(stepCount+1, _step, false));
-        emit StepAdded(msg.sender, _step, block.timestamp);
+        for(uint i = 0; i < userGoals[msg.sender].length; i++) {
+            if(userGoals[msg.sender][i].id == _goalId) {
+                userGoals[msg.sender][i].steps.push(Step(stepCount+1, _step, false));
+            }
+        }
+        emit StepAdded(_goalId, msg.sender, _step, block.timestamp);
     }
 
     function completeStep(uint _goalId, uint _stepId) public payable returns(Step[] memory) {
@@ -60,8 +67,18 @@ contract Hab3 {
         for (uint i = 0; i < stepArr.length; i++) {
             if(stepArr[i].id == _stepId) {
                 stepArr[i].completed = true;
-                // some type of token reward 
-                emit StepCompleted(msg.sender, stepArr[i].step, block.timestamp);
+                /* some type of token reward */
+                emit StepCompleted(_goalId, msg.sender, stepArr[i].step, block.timestamp);
+            }
+        }
+        for (uint i = 0; i < userGoals[msg.sender].length; i++) {
+            if(userGoals[msg.sender][i].id == _goalId) {
+                Step[] storage goalSteps = userGoals[msg.sender][i].steps;
+                for(uint x = 0; x < goalSteps.length; x++) {
+                    if(goalSteps[x].id == _stepId) {
+                        goalSteps[x].completed == true;
+                    }
+                }
             }
         }
         return stepArr;
@@ -69,19 +86,54 @@ contract Hab3 {
 
     function completeGoal(uint _goalId) public payable {
         idToGoal[_goalId].completed = true;
-        emit GoalCompleted(msg.sender, idToGoal[_goalId].goal, block.timestamp);
-        // some type of token reward 
+        /* some type of token reward */
+        Goal[] storage goalArr = userGoals[msg.sender]; 
+        for(uint i = 0; i < goalArr.length; i ++) {
+            if(goalArr[i].id == _goalId) {
+                goalArr[i].completed = true;
+            }
+        }
+        emit GoalCompleted(_goalId, msg.sender, idToGoal[_goalId].goal, block.timestamp);
     }
 
     function getUserGoals() public view returns (Goal[] memory) {
-
+        Goal[] memory goalArr = userGoals[msg.sender];
+        return goalArr;
     }
 
     function getCurrentGoals() public view returns (Goal[] memory)  {
-
+        uint count = 0;
+        uint currentIndex = 0;
+        for(uint i = 0; i < userGoals[msg.sender].length; i++) {
+            if(!(userGoals[msg.sender][i].completed)) {
+                count += 1;
+            }
+        }
+        Goal[] memory currentGoals = new Goal[](count);
+        for(uint i = 0; i < userGoals[msg.sender].length; i++) {
+            if(!(userGoals[msg.sender][i].completed)) {
+                currentGoals[currentIndex] = userGoals[msg.sender][i];
+                currentIndex += 1;
+            }
+        }
+        return currentGoals;
     }
 
     function getCompletedGoals() public view returns (Goal[] memory)  {
-
+        uint count = 0;
+        uint currentIndex = 0;
+        for(uint i = 0; i < userGoals[msg.sender].length; i++) {
+            if(userGoals[msg.sender][i].completed) {
+                count += 1;
+            }
+        }
+        Goal[] memory completedGoals = new Goal[](count);
+        for(uint i = 0; i < userGoals[msg.sender].length; i++) {
+            if(userGoals[msg.sender][i].completed) {
+                completedGoals[currentIndex] = userGoals[msg.sender][i];
+                currentIndex += 1;
+            }
+        }
+        return completedGoals;
     }
 }

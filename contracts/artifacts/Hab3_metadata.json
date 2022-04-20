@@ -14,6 +14,12 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
 						"indexed": false,
 						"internalType": "address",
 						"name": "user",
@@ -38,6 +44,12 @@
 			{
 				"anonymous": false,
 				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
 					{
 						"indexed": false,
 						"internalType": "address",
@@ -64,6 +76,12 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "goalId",
+						"type": "uint256"
+					},
+					{
 						"indexed": false,
 						"internalType": "address",
 						"name": "user",
@@ -88,6 +106,12 @@
 			{
 				"anonymous": false,
 				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "goalId",
+						"type": "uint256"
+					},
 					{
 						"indexed": false,
 						"internalType": "address",
@@ -189,6 +213,11 @@
 					{
 						"components": [
 							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
 								"internalType": "string",
 								"name": "goal",
 								"type": "string"
@@ -241,6 +270,11 @@
 					{
 						"components": [
 							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
 								"internalType": "string",
 								"name": "goal",
 								"type": "string"
@@ -292,6 +326,11 @@
 				"outputs": [
 					{
 						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
 							{
 								"internalType": "string",
 								"name": "goal",
@@ -537,11 +576,11 @@
 			]
 		},
 		"contracts/Hab3.sol": {
-			"keccak256": "0xe23005c13fd6187c0d94492bf50387ab0989f6f6247eff763b93003c3f5778bb",
+			"keccak256": "0xe02b902223848533fdac8e8c13dd325e1df94a7a84b79bd3a898e908a37d0594",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ed4cf92d7039108cfc1240c07c1a816753a8d973b04e9392c04e7fb5df824566",
-				"dweb:/ipfs/Qmdcbm2eWeaoLx9D5XHTDT38BvVpZ3mRbxD12Trvm9KNva"
+				"bzz-raw://7f7162eda8dd04cd25c6fd37452c7b85e1616dbfebc60e1a235ac160589e22db",
+				"dweb:/ipfs/QmRZuzRX4UX9f8YKcEsZFGahk7rhW74R2wvugL5vpm3euS"
 			]
 		},
 		"hardhat/console.sol": {
