@@ -96,8 +96,7 @@ contract Hab3 {
     }
 
     function getUserGoals() public view returns (Goal[] memory) {
-        Goal[] memory goalArr = userGoals[msg.sender];
-        return goalArr;
+        return userGoals[msg.sender];
     }
 
     function getCurrentGoals() public view returns (Goal[] memory)  {
