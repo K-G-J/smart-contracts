@@ -690,11 +690,11 @@
 			]
 		},
 		"contracts/MintToken.sol": {
-			"keccak256": "0x945a4a612a82725657a0650dafd6799b2a6d6fb8a40e2e74b032448435543ad2",
+			"keccak256": "0x3e5caba2327420fab963712ad8966c27f6f34365b8bc8a36501c26e05ed880ad",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://8c70268e24ac4bb7f413e213c0cf19b96969a6a4065c249210ef7d9bbe40edf3",
-				"dweb:/ipfs/QmUHdZvuAQ3NmV6EVTo2HdM9qaFDE8HrRnFjKX3gxDbgKs"
+				"bzz-raw://75c88888549c159ea07977f5e864326516835a65fe480913e6229816ae8ec9de",
+				"dweb:/ipfs/QmZ8ns3oMjaC96yGp2YurdfV8gujd2YDhF56h1SFXmk4XY"
 			]
 		}
 	},

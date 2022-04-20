@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.7;
 
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC1155/presets/ERC1155PresetMinterPauser.sol";
@@ -63,12 +63,11 @@ contract Hab3 {
     }
 
     function completeStep(uint _goalId, uint _stepId) public payable returns(Step[] memory) {
-        Step[] memory stepArr = idToGoal[_goalId].steps;
-        for (uint i = 0; i < stepArr.length; i++) {
-            if(stepArr[i].id == _stepId) {
-                stepArr[i].completed = true;
+        for (uint i = 0; i < idToGoal[_goalId].steps.length; i++) {
+            if(idToGoal[_goalId].steps[i].id == _stepId) {
+                idToGoal[_goalId].steps[i].completed = true;
                 /* some type of token reward */
-                emit StepCompleted(_goalId, msg.sender, stepArr[i].step, block.timestamp);
+                emit StepCompleted(_goalId, msg.sender, idToGoal[_goalId].steps[i].step, block.timestamp);
             }
         }
         for (uint i = 0; i < userGoals[msg.sender].length; i++) {
@@ -81,7 +80,7 @@ contract Hab3 {
                 }
             }
         }
-        return stepArr;
+        return idToGoal[_goalId].steps;
     }
 
     function completeGoal(uint _goalId) public payable {
