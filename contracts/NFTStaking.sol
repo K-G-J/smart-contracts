@@ -30,7 +30,7 @@ contract NFTStaking is Ownable, IERC721Receiver {
   // Referenced tokenId to staked
   mapping(uint256 => Stake) public vault;
 
-  constructor(Collection _nft, N2DRewards _token) {
+  constructor(NFTCollection _nft, RewardToken _token) {
     nft = _nft;
     token = _token;
   }
@@ -83,25 +83,34 @@ contract NFTStaking is Ownable, IERC721Receiver {
       _claim(msg.sender, tokenIds, true);
   }
 
+// TOKEN REWARDS CALCULATION
+// MAKE SURE YOU CHANGE THE VALUE ON BOTH CLAIM AND EARNINGINFO FUNCTIONS.
+// Find the following line and update accordingly based on how much you want 
+// to reward users with ERC-20 reward tokens.
+// rewardmath = 100 ether .... (This gives 1 token per day per NFT staked to the staker)
+// rewardmath = 200 ether .... (This gives 2 tokens per day per NFT staked to the staker)
+// rewardmath = 500 ether .... (This gives 5 tokens per day per NFT staked to the staker)
+// rewardmath = 1000 ether .... (This gives 10 tokens per day per NFT staked to the staker)
+
   function _claim(address account, uint256[] calldata tokenIds, bool _unstake) internal {
     uint256 tokenId;
     uint256 earned = 0;
+    uint256 rewardmath = 0;
 
     for (uint i = 0; i < tokenIds.length; i++) {
       tokenId = tokenIds[i];
       Stake memory staked = vault[tokenId];
       require(staked.owner == account, "not an owner");
       uint256 stakedAt = staked.timestamp;
-      earned += 100000 ether * (block.timestamp - stakedAt) / 1 days;
+      rewardmath = 100 ether * (block.timestamp - stakedAt) / 86400 ;
+      earned = rewardmath / 100;
       vault[tokenId] = Stake({
         owner: account,
         tokenId: uint24(tokenId),
         timestamp: uint48(block.timestamp) // reset time
       });
-
     }
     if (earned > 0) {
-      earned = earned / 10;
       token.mint(account, earned);
     }
     if (_unstake) {
@@ -110,21 +119,24 @@ contract NFTStaking is Ownable, IERC721Receiver {
     emit Claimed(account, earned);
   }
 
-  /* Retrieve Staking Information Functions */
+  function earningInfo(address account, uint256[] calldata tokenIds) external view returns (uint256[1] memory info) {
+     uint256 tokenId;
+     uint256 earned = 0;
+     uint256 rewardmath = 0;
 
-  // returns how much user has earned in rewards per day and second (formatted 2 decimals)
- function earningInfo(uint256 tokenId) external view returns (uint256[2] memory info) {
-    uint256 tokenId;
-    uint256 totalScore = 0;
-    uint256 earned = 0;
-    Stake memory staked = vault[tokenId];
-    uint256 stakedAt = staked.timestamp;
-    earned += 100000 ether * (block.timestamp - stakedAt) / 1 days;
-    uint256 earnRatePerSecond = (totalScore * 1 ether / 1 days) / 100000;
-    earnRatePerSecond = earnRatePerSecond / 100000;
-    // earned, earnRatePerSecond
-    return [earned, earnRatePerSecond];
-  }
+    for (uint i = 0; i < tokenIds.length; i++) {
+      tokenId = tokenIds[i];
+      Stake memory staked = vault[tokenId];
+      require(staked.owner == account, "not an owner");
+      uint256 stakedAt = staked.timestamp;
+      rewardmath = 100 ether * (block.timestamp - stakedAt) / 86400;
+      earned = rewardmath / 100;
+
+    }
+    if (earned > 0) {
+      return [earned];
+    }
+}
 
   // returns ammount of nfts staked on the vault (should never be used inside of transaction because of gas fee)
   function balanceOf(address account) public view returns (uint256) {
