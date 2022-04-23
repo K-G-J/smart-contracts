@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT LICENSE
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 /* NFT collection contract(should be Ownable) */
 import "./NFTCollection.sol";
@@ -23,9 +23,9 @@ contract NFTStaking is Ownable, IERC721Receiver {
   event Claimed(address owner, uint256 amount);
 
   // Points to NFT Collection Smart Contract
-  Collection nft;
+  NFTCollection nft;
   // Points to staking Rewards Token Contract
-  N2DRewards token; 
+  RewardToken token; 
 
   // Referenced tokenId to staked
   mapping(uint256 => Stake) public vault;
@@ -106,7 +106,7 @@ contract NFTStaking is Ownable, IERC721Receiver {
   /* Retrieve Staking Information Functions */
 
   // returns how much user has earned in rewards per day and second (formatted 2 decimals)
-  function earningInfo(uint256 tokenId) external view returns (uint256[2] memory info) {
+  function earningInfo(uint256 tokenIds) external view returns (uint256[2] memory info) {
      uint256 tokenId;
      uint256 totalScore = 0;
      uint256 earned = 0;
