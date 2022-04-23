@@ -83,7 +83,7 @@ contract NFTStaking is Ownable, IERC721Receiver {
       _claim(msg.sender, tokenIds, true);
   }
 
-    function _claim(address account, uint256[] calldata tokenIds, bool _unstake) internal {
+  function _claim(address account, uint256[] calldata tokenIds, bool _unstake) internal {
     uint256 tokenId;
     uint256 earned = 0;
 
@@ -91,35 +91,36 @@ contract NFTStaking is Ownable, IERC721Receiver {
       tokenId = tokenIds[i];
       Stake memory staked = vault[tokenId];
       require(staked.owner == account, "not an owner");
-
       uint256 stakedAt = staked.timestamp;
-      // amount issued to token staker every time a block is processed (gwei)
-      earned += 10000 ether * (block.timestamp - stakedAt) / 1 days;
+      earned += 100000 ether * (block.timestamp - stakedAt) / 1 days;
       vault[tokenId] = Stake({
-        owner: acount, 
-        token: uint24(tokenId),
-        // reset timestamp
-        timestamp: uint48(block.timestamp)
+        owner: account,
+        tokenId: uint24(tokenId),
+        timestamp: uint48(block.timestamp) // reset time
       });
+
     }
+    if (earned > 0) {
+      earned = earned / 10;
+      token.mint(account, earned);
+    }
+    if (_unstake) {
+      _unstakeMany(account, tokenIds);
+    }
+    emit Claimed(account, earned);
+  }
 
   /* Retrieve Staking Information Functions */
 
   // returns how much user has earned in rewards per day and second (formatted 2 decimals)
-  function earningInfo(uint256 tokenIds) external view returns (uint256[2] memory info) {
-     uint256 tokenId;
-     uint256 totalScore = 0;
-     uint256 earned = 0;
-      Stake memory staked = vault[tokenId];
-      uint256 stakedAt = staked.timestamp;
-      earned += 100000 ether * (block.timestamp - stakedAt) / 1 days;
-    uint256 earnRatePerSecond = totalScore * 1 ether / 1 days;
-    earnRatePerSecond = earnRatePerSecond / 100000;
-    // earned, earnRatePerSecond
-    return [earned, earnRatePerSecond];
-  }
-     
-    uint256 earnRatePerSecond = totalScore * 1 ether / 1 days;
+ function earningInfo(uint256 tokenId) external view returns (uint256[2] memory info) {
+    uint256 tokenId;
+    uint256 totalScore = 0;
+    uint256 earned = 0;
+    Stake memory staked = vault[tokenId];
+    uint256 stakedAt = staked.timestamp;
+    earned += 100000 ether * (block.timestamp - stakedAt) / 1 days;
+    uint256 earnRatePerSecond = (totalScore * 1 ether / 1 days) / 100000;
     earnRatePerSecond = earnRatePerSecond / 100000;
     // earned, earnRatePerSecond
     return [earned, earnRatePerSecond];

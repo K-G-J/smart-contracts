@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.13+commit.abaa5c0e"
+		"version": "0.8.7+commit.e28d00a7"
 	},
 	"language": "Solidity",
 	"output": {
@@ -440,11 +440,11 @@
 			]
 		},
 		"contracts/NFTCollection.sol": {
-			"keccak256": "0xde9d4e597ac08dffdbf87c251b51b758f5a5510b5bfe3ef09b288de84e91b427",
+			"keccak256": "0x5e4effc8a65d0f630d35e9d634e5ef8b69dd041508feafa482975dd5c8eca2ef",
 			"license": "MIT LICENSE",
 			"urls": [
-				"bzz-raw://250e8c78aabf2993474623dddbe5d796ec853b333586296b1decc38b4eb5249b",
-				"dweb:/ipfs/QmcvQVgJeLoZoMz3JEmkGBnAdVRjbvch5VVqQYzpgvJdhn"
+				"bzz-raw://b05aec2663686cc164873f1e8621837a4a18481b8bebf90159231f60dbd41be0",
+				"dweb:/ipfs/QmdijgrGVzkmnfZMMci8iDLBSY2QFQZeffmY6WPgpKyfqq"
 			]
 		}
 	},
