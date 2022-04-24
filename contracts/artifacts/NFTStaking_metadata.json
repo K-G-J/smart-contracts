@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.4+commit.c7e474f2"
+		"version": "0.8.7+commit.e28d00a7"
 	},
 	"language": "Solidity",
 	"output": {
@@ -8,12 +8,12 @@
 			{
 				"inputs": [
 					{
-						"internalType": "contract Collection",
+						"internalType": "contract ERC721Enumerable",
 						"name": "_nft",
 						"type": "address"
 					},
 					{
-						"internalType": "contract N2DRewards",
+						"internalType": "contract RewardToken",
 						"name": "_token",
 						"type": "address"
 					}
@@ -162,6 +162,11 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256[]",
 						"name": "tokenIds",
 						"type": "uint256[]"
@@ -170,9 +175,9 @@
 				"name": "earningInfo",
 				"outputs": [
 					{
-						"internalType": "uint256[2]",
+						"internalType": "uint256[1]",
 						"name": "info",
-						"type": "uint256[2]"
+						"type": "uint256[1]"
 					}
 				],
 				"stateMutability": "view",
@@ -358,7 +363,7 @@
 		"compilationTarget": {
 			"contracts/NFTStaking.sol": "NFTStaking"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -498,28 +503,28 @@
 				"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
 			]
 		},
-		"contracts/NFTCollection.sol": {
-			"keccak256": "0x1fff9c59cbbf5f09fa386860a1b2855c01e887d695ecdf6bed0ac32cc65ab8c9",
-			"license": "MIT LICENSE",
+		"@openzeppelin/contracts/utils/math/SafeMath.sol": {
+			"keccak256": "0xa2f576be637946f767aa56601c26d717f48a0aff44f82e46f13807eea1009a21",
+			"license": "MIT",
 			"urls": [
-				"bzz-raw://7edf2ea0f6f8e9aafca68ca062190e47a884618e7f8a1bc17b55ba08357cc73b",
-				"dweb:/ipfs/Qmd5q2VY1YRnUvb446jo9UkkQtKHQLVbp4GdcQECdXrWw6"
+				"bzz-raw://973868f808e88e21a1a0a01d4839314515ee337ad096286c88e41b74dcc11fc2",
+				"dweb:/ipfs/QmfYuZxRfx2J2xdk4EXN7jKg4bUYEMTaYk9BAw9Bqn4o2Y"
 			]
 		},
 		"contracts/NFTStaking.sol": {
-			"keccak256": "0xaa070cf6b43c38a578d0306ed57ff84b840d372a286b0d2eb36a284ad441ef71",
+			"keccak256": "0x96380420a20a4f648b75bff9a39c340bace92eebbfd9ca002c21de871240277d",
 			"license": "MIT LICENSE",
 			"urls": [
-				"bzz-raw://58a5ac8d59f9f0dcfecd178a330806aa098cf5d301e5f2be3ff786261fe13fcd",
-				"dweb:/ipfs/QmcqTCT6EjiTCtuRxY33gLnc34q233ExuBaNq8UtgYv43f"
+				"bzz-raw://1e5ad07074a017cad2713bf2b4eec41f19fd5c5e562036f05b43eeb1fa8eb095",
+				"dweb:/ipfs/QmU7HqxY9EUNtsrQEkszqMfyKbiUjzYYe6jfDs8nm2TXtn"
 			]
 		},
 		"contracts/RewardToken.sol": {
-			"keccak256": "0x02f3d9e90d55e5da1f29383b1b34412b2484255db1e839e7997106dd81ace359",
+			"keccak256": "0xa7404b2bea360609e6714f86a44233e44502e8e83106c938aaee8f9d7f10a875",
 			"license": "MIT LICENSE",
 			"urls": [
-				"bzz-raw://86c4d4da6faefa072afaeb29be38e75c29b44409e9a37b6cfbc60be19e420597",
-				"dweb:/ipfs/Qme1Pk2wqwvLFPau5dEdyshKz4uQ25U32zxZTKq5qmvGg7"
+				"bzz-raw://807d64fedbcf350f736a6ccbe83b17d811fe2f0b77ea39671556d3af77875c63",
+				"dweb:/ipfs/QmcVQtR2v6NL23h6QRJZePY2xfd3JEQWJzGm1v31yiYGQF"
 			]
 		}
 	},

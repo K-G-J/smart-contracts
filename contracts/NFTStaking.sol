@@ -3,7 +3,9 @@
 pragma solidity ^0.8.4;
 
 /* NFT collection contract(should be Ownable) */
-import "./NFTCollection.sol";
+// import "./NFTCollection.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 /* ERC20 smart contract token that issues rewards (should be Ownable) */
 import "./RewardToken.sol"; 
 
@@ -23,14 +25,14 @@ contract NFTStaking is Ownable, IERC721Receiver {
   event Claimed(address owner, uint256 amount);
 
   // Points to NFT Collection Smart Contract
-  NFTCollection nft;
+  ERC721Enumerable nft;
   // Points to staking Rewards Token Contract
   RewardToken token; 
 
   // Referenced tokenId to staked
   mapping(uint256 => Stake) public vault;
 
-  constructor(NFTCollection _nft, RewardToken _token) {
+  constructor(ERC721Enumerable _nft, RewardToken _token) {
     nft = _nft;
     token = _token;
   }
