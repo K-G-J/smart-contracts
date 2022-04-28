@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
@@ -27,15 +27,18 @@ contract SecretReciple is Ownable {
         _;
     }
 
+    address[] whitelist;
+
     event RecipeEvent(uint256 id);
 
     constructor() {
         permittedAddresses.increment();
         permitted[msg.sender] = true;
+        whitelist.push(msg.sender);
     }
 
     function addRecipe(string calldata _title, string calldata _description, string[] memory _ingredients,  string[] memory _steps, string[] memory _images) onlyPermitted external {
-        _recipeIds.increment();
+        recipeIds.increment();
         uint256 recipeId = recipeIds.current();
         Recipe storage recipe = idToRecipe[recipeId];
         recipe.title = _title;
@@ -56,18 +59,17 @@ contract SecretReciple is Ownable {
         emit RecipeEvent(_id);
     }
 
-    function deleteRecipe(uint256 _id, string calldata _title, string calldata _description, string[] memory _ingredients,  string[] memory _steps, string[] memory _images) onlyPermitted external {
+    function deleteRecipe(uint256 _id) onlyPermitted external {
         require(idToRecipe[_id].id > 0, "Recipe does not exist");
-        delete idToGoal[_id];
+        delete idToRecipe[_id];
     }
 
     function getRecipes() view external onlyPermitted returns(Recipe[] memory) {
         uint256 recipeCount = recipeIds.current();
-        Recipe[] memory recipes = new Recipe[](recipeCount) {
-            for (uint256 i = 1; i < recipeCount; i ++) {
-                Recipe storage recipe = idToRecipe[i];
-                recipes[i] = recipe;
-            }
+        Recipe[] memory recipes = new Recipe[](recipeCount);
+        for (uint256 i = 1; i < recipeCount; i ++) {
+            Recipe storage recipe = idToRecipe[i];
+            recipes[i] = recipe;
         }
         return recipes;
     }
@@ -75,20 +77,26 @@ contract SecretReciple is Ownable {
     function addPermitted(address _address) external onlyPermitted {
         permittedAddresses.increment();
         permitted[_address] = true;
+        whitelist.push(msg.sender);
     }
 
     function removePermitted(address _address) external onlyPermitted {
         permittedAddresses.decrement();
-        delete permitted[_address];
-    }
-
-    function getPermitted() external returns (address[] memory) {
         uint256 permittedCount = permittedAddresses.current();
-        address[] memory permitted = new address[](permittedCount) {
-            for (uint256 i = 1; i < permittedCount; i ++) {
-                if (permitted)
-
+        delete permitted[_address];
+        for (uint256 i = 0; i < permittedCount; i ++) {
+            if (whitelist[i] == _address) {
+                delete whitelist[i];
             }
         }
+    }
+
+    function getPermitted() view external returns (address[] memory) {
+        uint256 permittedCount = permittedAddresses.current();
+        address[] memory permittedArr = new address[](permittedCount);
+        for (uint256 i = 0; i < permittedCount; i ++) {
+            permittedArr[i] = whitelist[i];
+        }
+        return permittedArr;
     }
 }
