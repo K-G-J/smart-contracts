@@ -20,7 +20,7 @@ contract SecretReciple is Ownable {
     }
 
     mapping(uint256 => Recipe) private idToRecipe;
-    mapping(address => bool) permitted;
+    mapping(address => bool) public permitted;
 
     modifier onlyPermitted() {
         require(permitted[msg.sender], "Permission not granted");
@@ -61,7 +61,9 @@ contract SecretReciple is Ownable {
 
     function deleteRecipe(uint256 _id) onlyPermitted external {
         require(idToRecipe[_id].id > 0, "Recipe does not exist");
+        recipeIds.decrement();
         delete idToRecipe[_id];
+        emit RecipeEvent(_id);
     }
 
     function getRecipes() view external onlyPermitted returns(Recipe[] memory) {
@@ -92,11 +94,6 @@ contract SecretReciple is Ownable {
     }
 
     function getPermitted() view external returns (address[] memory) {
-        uint256 permittedCount = permittedAddresses.current();
-        address[] memory permittedArr = new address[](permittedCount);
-        for (uint256 i = 0; i < permittedCount; i ++) {
-            permittedArr[i] = whitelist[i];
-        }
-        return permittedArr;
+        return whitelist;
     }
 }
