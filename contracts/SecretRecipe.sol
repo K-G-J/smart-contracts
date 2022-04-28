@@ -8,6 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract SecretReciple is Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private recipeIds;
+    Counters.Counter private permittedAddresses;
 
     struct Recipe {
         uint256 id;
@@ -29,6 +30,7 @@ contract SecretReciple is Ownable {
     event RecipeEvent(uint256 id);
 
     constructor() {
+        permittedAddresses.increment();
         permitted[msg.sender] = true;
     }
 
@@ -61,19 +63,32 @@ contract SecretReciple is Ownable {
 
     function getRecipes() view external onlyPermitted returns(Recipe[] memory) {
         uint256 recipeCount = recipeIds.current();
-        Recipe[] recipes = new Recipe[](recipeCount) {
-            for (uint256 i = 0; i < recipeCount; i ++) {
-                uint256 currentId = i + 1;
-                Recipe storage recipe = idToRecipe[currentId];
+        Recipe[] memory recipes = new Recipe[](recipeCount) {
+            for (uint256 i = 1; i < recipeCount; i ++) {
+                Recipe storage recipe = idToRecipe[i];
                 recipes[i] = recipe;
             }
         }
         return recipes;
     }
 
-    function getPermitted view external returns(address[] memory) {
-        uint256 permittedCount = 0;
+    function addPermitted(address _address) external onlyPermitted {
+        permittedAddresses.increment();
+        permitted[_address] = true;
+    }
 
-        for (i = 0; i < )
+    function removePermitted(address _address) external onlyPermitted {
+        permittedAddresses.decrement();
+        delete permitted[_address];
+    }
+
+    function getPermitted() external returns (address[] memory) {
+        uint256 permittedCount = permittedAddresses.current();
+        address[] memory permitted = new address[](permittedCount) {
+            for (uint256 i = 1; i < permittedCount; i ++) {
+                if (permitted)
+
+            }
+        }
     }
 }
