@@ -79,7 +79,7 @@ contract SecretReciple is Ownable {
     function addPermitted(address _address) external onlyPermitted {
         permittedAddresses.increment();
         permitted[_address] = true;
-        whitelist.push(msg.sender);
+        whitelist.push(_address);
     }
 
     function removePermitted(address _address) external onlyPermitted {
