@@ -19,7 +19,7 @@ contract SecretReciple is Ownable {
         string[] images;
     }
 
-    mapping(uint256 => Recipe) private idToRecipe;
+    mapping(uint256 => Recipe) public idToRecipe;
     mapping(address => bool) public permitted;
 
     modifier onlyPermitted() {
@@ -83,12 +83,13 @@ contract SecretReciple is Ownable {
     }
 
     function removePermitted(address _address) external onlyPermitted {
-        permittedAddresses.decrement();
         uint256 permittedCount = permittedAddresses.current();
         delete permitted[_address];
         for (uint256 i = 0; i < permittedCount; i ++) {
             if (whitelist[i] == _address) {
-                delete whitelist[i];
+                whitelist[i] = whitelist[whitelist.length - 1];
+                whitelist.pop();
+                permittedAddresses.decrement();
             }
         }
     }
