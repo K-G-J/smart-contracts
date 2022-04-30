@@ -5,7 +5,7 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract SecretReciple is Ownable {
+contract SecretRecipe is Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private recipeIds;
     Counters.Counter private permittedAddresses;
@@ -37,7 +37,13 @@ contract SecretReciple is Ownable {
         whitelist.push(msg.sender);
     }
 
-    function addRecipe(string calldata _title, string calldata _description, string[] memory _ingredients,  string[] memory _steps, string[] memory _images) onlyPermitted external {
+    function addRecipe(
+        string calldata _title,
+        string calldata _description,
+        string[] memory _ingredients,
+        string[] memory _steps,
+        string[] memory _images)
+        external onlyPermitted {
         recipeIds.increment();
         uint256 recipeId = recipeIds.current();
         Recipe storage recipe = idToRecipe[recipeId];
@@ -49,8 +55,14 @@ contract SecretReciple is Ownable {
         emit RecipeEvent(recipeId);
     }
 
-    function editRecipe(uint256 _id, string calldata _title, string calldata _description, string[] memory _ingredients,  string[] memory _steps, string[] memory _images) onlyPermitted external {
-        require(idToRecipe[_id].id > 0, "Recipe does not exist");
+    function editRecipe(
+    uint256 _id,
+    string calldata _title,
+    string calldata _description,
+    string[] memory _ingredients,
+    string[] memory _steps,
+    string[] memory _images)
+    external onlyPermitted {
         idToRecipe[_id].title = _title;
         idToRecipe[_id].description = _description;
         idToRecipe[_id].ingredients = _ingredients;
@@ -59,18 +71,17 @@ contract SecretReciple is Ownable {
         emit RecipeEvent(_id);
     }
 
-    function deleteRecipe(uint256 _id) onlyPermitted external {
-        require(idToRecipe[_id].id > 0, "Recipe does not exist");
+    function deleteRecipe(uint256 _id) external onlyPermitted {
         recipeIds.decrement();
         delete idToRecipe[_id];
         emit RecipeEvent(_id);
     }
 
-    function getRecipes() view external onlyPermitted returns(Recipe[] memory) {
+    function getRecipes() external view onlyPermitted returns(Recipe[] memory) {
         uint256 recipeCount = recipeIds.current();
         Recipe[] memory recipes = new Recipe[](recipeCount);
-        for (uint256 i = 1; i < recipeCount; i ++) {
-            Recipe storage recipe = idToRecipe[i];
+        for (uint256 i = 0; i < recipeCount; i ++) {
+            Recipe storage recipe = idToRecipe[i + 1];
             recipes[i] = recipe;
         }
         return recipes;
@@ -94,7 +105,7 @@ contract SecretReciple is Ownable {
         }
     }
 
-    function getPermitted() view external returns (address[] memory) {
+    function getPermitted() external view returns (address[] memory) {
         return whitelist;
     }
 }
