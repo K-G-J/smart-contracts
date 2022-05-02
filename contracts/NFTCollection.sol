@@ -4,9 +4,10 @@ pragma solidity 0.8.4;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 
-contract NFTCollection is ERC721Enumerable, Ownable {
+contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
 
   struct TokenInfo {
      IERC20 paytoken;
@@ -78,27 +79,27 @@ contract NFTCollection is ERC721Enumerable, Ownable {
       }
       
       // change max mint amount (only owner)
-      function setmaxMintAmount(uint256 _newmaxMintAmount) public onlyOwner() {
+      function setmaxMintAmount(uint256 _newmaxMintAmount) public onlyOwner {
         maxMintAmount = _newmaxMintAmount;
       }
 
       // change base tokenURI (only owner)
-      function setBaseURI(string memory _newBaseURI) public onlyOwner() {
+      function setBaseURI(string memory _newBaseURI) public onlyOwner {
         baseURI = _newBaseURI;
       }
       
       // change base extension on token URI (only owner)
-      function setBaseExtension(string memory _newBaseExtension) public onlyOwner() {
+      function setBaseExtension(string memory _newBaseExtension) public onlyOwner {
         baseExtension = _newBaseExtension;
       }
       
       // pause minting (only owner)
-      function pause(bool _state) public onlyOwner() {
+      function pause(bool _state) public onlyOwner {
         paused = _state;
       }
       
       // Withdraw funds from contract (only owner)
-      function withdraw(uint256 _pid) public payable onlyOwner() {
+      function withdraw(uint256 _pid) public payable onlyOwner nonReentrant {
         TokenInfo storage tokens = AllowedCrypto[_pid];
         IERC20 paytoken = tokens.paytoken;
         (bool success, ) = payable(msg.sender).call{value: paytoken.balanceOf(address(this))}("");
