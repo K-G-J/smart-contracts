@@ -107,6 +107,48 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "AllowedCrypto",
+				"outputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "paytoken",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "costvalue",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "_paytoken",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_costvalue",
+						"type": "uint256"
+					}
+				],
+				"name": "addCurrency",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "to",
 						"type": "address"
@@ -162,19 +204,6 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "cost",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -259,6 +288,11 @@
 					{
 						"internalType": "uint256",
 						"name": "_mintAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_pid",
 						"type": "uint256"
 					}
 				],
@@ -616,7 +650,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pid",
+						"type": "uint256"
+					}
+				],
 				"name": "withdraw",
 				"outputs": [],
 				"stateMutability": "payable",
@@ -716,6 +756,14 @@
 				"dweb:/ipfs/QmXRoFGUgfsaRkoPT5bxNMtSayKTQ8GZATLPXf69HcRA51"
 			]
 		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0xbbc8ac883ac3c0078ce5ad3e288fbb3ffcc8a30c3a98c0fda0114d64fc44fca2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://87a7a5d2f6f63f84598af02b8c50ca2df2631cb8ba2453e8d95fcb17e4be9824",
+				"dweb:/ipfs/QmR76hqtAcRqoFj33tmNjcWTLrgNsAaakYwnKZ8zoJtKei"
+			]
+		},
 		"@openzeppelin/contracts/token/ERC721/ERC721.sol": {
 			"keccak256": "0x11b84bb56dc112a6590bfe3e0efa118aa1b5891132342200d04c4ef544cb93de",
 			"license": "MIT",
@@ -805,11 +853,11 @@
 			]
 		},
 		"contracts/NFTCollection.sol": {
-			"keccak256": "0xe0c73fbc8187527101eb30226ea9937c1d345a68ea1d646e4f4994bb3af0d673",
+			"keccak256": "0x338a872977e6d4f0e3701885827bfbd8bb1e09dcbf31586c5e84264841bdd590",
 			"license": "MIT LICENSE",
 			"urls": [
-				"bzz-raw://0c6d3c8b0ccbdc6dd347e3ab249c66c9e8cc27a9eccffab9889829edaff0caca",
-				"dweb:/ipfs/QmeUsSmz1RtTaE4X1eGa2ReDjDzxsoWfENxAz4tKbo7QCS"
+				"bzz-raw://772638c9581158027f938da835c3ee64e858e9b71a24ec5645fe81bbcaf73e34",
+				"dweb:/ipfs/QmRKj7CYCPKUmibCo2gMKE4434e5sxtqeXe7XKUoQThqdn"
 			]
 		}
 	},

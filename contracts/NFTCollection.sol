@@ -1,30 +1,37 @@
 // SPDX-License-Identifier: MIT LICENSE
 
 pragma solidity 0.8.4;
-import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
-import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
-import "@openzeppelin/contracts/utils/Address.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
-import "@openzeppelin/contracts/utils/Context.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
 
 contract NFTCollection is ERC721Enumerable, Ownable {
+
+  struct TokenInfo {
+     IERC20 paytoken;
+     uint256 costvalue;
+  }
+
+  TokenInfo[] public AllowedCrypto;
+
   using Strings for uint256;
   string public baseURI;
   string public baseExtension = ".json";
-  uint256 public cost = 0.001 ether; // cost to mint 
-  uint256 public maxSupply = 100000; // max supply of NFTs in collection
+  uint256 public maxSupply = 1000; // max supply of NFTs in collection
   uint256 public maxMintAmount = 5; // max amount per mint call
   bool public paused = false;
 
   constructor() ERC721("NFT Collection", "NFC") {}
+
+  function addCurrency (IERC20 _paytoken, uint256 _costvalue) public onlyOwner {
+    AllowedCrypto.push(
+      TokenInfo({
+        paytoken: _paytoken,
+        costvalue: _costvalue
+      })
+    );
+  }
   
   // internal func to get collection baseURI from ipfs
   function _baseURI() internal view virtual override returns (string memory) {
@@ -32,19 +39,23 @@ contract NFTCollection is ERC721Enumerable, Ownable {
     }
   
   // public minting
-  function mint(address _to, uint256 _mintAmount) public payable {
+  function mint(address _to, uint256 _mintAmount, uint256 _pid) public payable {
     uint256 supply = totalSupply();
     require(!paused);
     require(_mintAmount > 0);
     require(_mintAmount <= maxMintAmount);
     require(supply + _mintAmount <= maxSupply);
+    TokenInfo storage tokens = AllowedCrypto[_pid];
+    IERC20 paytoken = tokens.paytoken; 
+    uint256 cost = tokens.costvalue;
     
     // owner can mint without fee
     if (msg.sender != owner()) {
       require(msg.value == cost * _mintAmount, "Need to send correct amount of ether!");
       }
       for (uint256 i = 1; i <= _mintAmount; i++) {
-        _safeMint(_to, supply + i);
+        paytoken.transferFrom(msg.sender, address(this), cost);
+        _safeMint(_to, supply + i); // address, tokenID
         }
       }
 
@@ -87,8 +98,10 @@ contract NFTCollection is ERC721Enumerable, Ownable {
       }
       
       // Withdraw funds from contract (only owner)
-      function withdraw() public payable onlyOwner() {
-        (bool success, ) = payable(msg.sender).call{value: address(this).balance}("");
+      function withdraw(uint256 _pid) public payable onlyOwner() {
+        TokenInfo storage tokens = AllowedCrypto[_pid];
+        IERC20 paytoken = tokens.paytoken;
+        (bool success, ) = payable(msg.sender).call{value: paytoken.balanceOf(address(this))}("");
         require(success, "Funds were not withdrawn");
       }
 }
