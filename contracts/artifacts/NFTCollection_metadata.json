@@ -882,11 +882,11 @@
 			]
 		},
 		"contracts/NFTCollection.sol": {
-			"keccak256": "0xb96ba8ea5616c2f2267377bdc003f3975b54ef3f41915dc2344f6756f48d0990",
+			"keccak256": "0x2e6ae23013fce452960868575f8f90e28ee40e8d3dab3cc8e44dc6502b3c171c",
 			"license": "MIT LICENSE",
 			"urls": [
-				"bzz-raw://fb8b2c4b67004b06de9ec8b389acd16af751ecb32621f6d4644cd375e4cefaf6",
-				"dweb:/ipfs/Qmcj73H5ncAPQoZoXBeV4icz5FstGCpJGUMmqg8Ytxd16j"
+				"bzz-raw://366f165645f2c59b43ac53f124d3deb4bcc3a4e1862c556ce28883459e0fb9eb",
+				"dweb:/ipfs/QmVd9UA2Dc4rsn722YKpPy3dTgNN8j3CKwtgGN5PFHrvws"
 			]
 		}
 	},

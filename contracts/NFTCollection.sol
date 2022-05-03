@@ -19,7 +19,7 @@ contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
 
   using Strings for uint256;
   using Counters for Counters.Counter;
-  Counters.Counter public mintedIds;
+  Counters.Counter public mintedIds; // total number of NFTs in collection 
   string public baseURI;
   string public baseExtension = ".json";
   uint256 public maxSupply = 1000; // max supply of NFTs in collection
@@ -29,12 +29,7 @@ contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
   constructor() ERC721("NFT Collection", "NFC") {}
 
   function addCurrency (IERC20 _paytoken, uint256 _costvalue) public onlyOwner {
-    AllowedCrypto.push(
-      TokenInfo({
-        paytoken: _paytoken,
-        costvalue: _costvalue
-      })
-    );
+    AllowedCrypto.push(TokenInfo(_paytoken,_costvalue));
   }
   
   // internal func to get collection baseURI from ipfs
