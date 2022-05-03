@@ -47,6 +47,7 @@ contract SecretRecipe is Ownable {
         recipeIds.increment();
         uint256 recipeId = recipeIds.current();
         Recipe storage recipe = idToRecipe[recipeId];
+        recipe.id = recipeId;
         recipe.title = _title;
         recipe.description = _description;
         recipe.ingredients = _ingredients;
