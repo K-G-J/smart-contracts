@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
 
 contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
@@ -17,6 +18,8 @@ contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
   TokenInfo[] public AllowedCrypto;
 
   using Strings for uint256;
+  using Counters for Counters.Counter;
+  Counters.Counter public mintedIds;
   string public baseURI;
   string public baseExtension = ".json";
   uint256 public maxSupply = 1000; // max supply of NFTs in collection
@@ -41,11 +44,11 @@ contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
   
   // public minting
   function mint(address _to, uint256 _mintAmount, uint256 _pid) public payable {
-    uint256 supply = totalSupply();
+    uint256 _mintedIds = mintedIds.current();
     require(!paused);
     require(_mintAmount > 0);
     require(_mintAmount <= maxMintAmount);
-    require(supply + _mintAmount <= maxSupply);
+    require(_mintedIds + _mintAmount <= maxSupply);
     TokenInfo storage tokens = AllowedCrypto[_pid];
     IERC20 paytoken = tokens.paytoken; 
     uint256 cost = tokens.costvalue;
@@ -56,7 +59,8 @@ contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
       }
       for (uint256 i = 1; i <= _mintAmount; i++) {
         paytoken.transferFrom(msg.sender, address(this), cost);
-        _safeMint(_to, supply + i); // address, tokenID
+        _safeMint(_to, _mintedIds + i); 
+        mintedIds.increment();
         }
       }
 

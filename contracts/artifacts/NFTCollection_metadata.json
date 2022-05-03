@@ -303,6 +303,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "mintedIds",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "_value",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "name",
 				"outputs": [
 					{
@@ -836,6 +849,14 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
+		"@openzeppelin/contracts/utils/Counters.sol": {
+			"keccak256": "0xf0018c2440fbe238dd3a8732fa8e17a0f9dce84d31451dc8a32f6d62b349c9f1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://59e1c62884d55b70f3ae5432b44bb3166ad71ae3acd19c57ab6ddc3c87c325ee",
+				"dweb:/ipfs/QmezuXg5GK5oeA4F91EZhozBFekhq5TD966bHPH18cCqhu"
+			]
+		},
 		"@openzeppelin/contracts/utils/Strings.sol": {
 			"keccak256": "0x32c202bd28995dd20c4347b7c6467a6d3241c74c8ad3edcbb610cd9205916c45",
 			"license": "MIT",
@@ -861,11 +882,11 @@
 			]
 		},
 		"contracts/NFTCollection.sol": {
-			"keccak256": "0x8937c3daeea18d6736d5c93b6c30457e28ca7d1a09073d9003bbe3248b80008f",
+			"keccak256": "0xb96ba8ea5616c2f2267377bdc003f3975b54ef3f41915dc2344f6756f48d0990",
 			"license": "MIT LICENSE",
 			"urls": [
-				"bzz-raw://06a3e1683afb9846420cb48a1932f6c8991372d75394d9e1fbb006c01eea9afe",
-				"dweb:/ipfs/QmVSPQW2fGP3fdwirTXGTGncMr1aHWj1zdfL6E7jdsu3gS"
+				"bzz-raw://fb8b2c4b67004b06de9ec8b389acd16af751ecb32621f6d4644cd375e4cefaf6",
+				"dweb:/ipfs/Qmcj73H5ncAPQoZoXBeV4icz5FstGCpJGUMmqg8Ytxd16j"
 			]
 		}
 	},
