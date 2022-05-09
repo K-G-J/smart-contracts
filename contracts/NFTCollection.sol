@@ -24,6 +24,7 @@ contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
   string public baseExtension = ".json";
   uint256 public maxSupply = 1000; // max supply of NFTs in collection
   uint256 public maxMintAmount = 5; // max amount per mint call
+  uint256 cost = 15 ether; // native cost for Ethereum
   bool public paused = false;
 
   constructor() ERC721("NFT Collection", "NFC") {}
@@ -37,25 +38,43 @@ contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
       return "ipfs://EE5MmqVp5MmqVp7ZRMBBizicVh9ficVh9fjUofWicVh9f/";
     }
   
-  // public minting
-  function mint(address _to, uint256 _mintAmount, uint256 _pid) public payable {
+  // public minting for native token
+  function mint(address _to, uint256 _mintAmount) public payable {
     uint256 _mintedIds = mintedIds.current();
-    require(!paused);
-    require(_mintAmount > 0);
-    require(_mintAmount <= maxMintAmount);
-    require(_mintedIds + _mintAmount <= maxSupply);
-    TokenInfo storage tokens = AllowedCrypto[_pid];
-    IERC20 paytoken = tokens.paytoken; 
-    uint256 cost = tokens.costvalue;
+    require(!paused, "minting is not enabled");
+    require(_mintAmount > 0, "need to submit a mint amount");
+    require(_mintAmount <= maxMintAmount, "execeeded max mint amount");
+    require(_mintedIds + _mintAmount <= maxSupply, "exceeded max NFT supply");
     
     // owner can mint without fee
     if (msg.sender != owner()) {
       require(msg.value == cost * _mintAmount, "Need to send correct amount of ether!");
       }
       for (uint256 i = 1; i <= _mintAmount; i++) {
-        paytoken.transferFrom(msg.sender, address(this), cost);
         _safeMint(_to, _mintedIds + i); 
         mintedIds.increment();
+        }
+      }
+
+      // public minting for allowed token
+      function mintpid(address _to, uint256 _mintAmount, uint256 _pid) public payable {
+        uint256 _mintedIds = mintedIds.current();
+        require(!paused, "minting is not enabled");
+        require(_mintAmount > 0, "need to submit a mint amount");
+        require(_mintAmount <= maxMintAmount, "execeeded max mint amount");
+        require(_mintedIds + _mintAmount <= maxSupply, "exceeded max NFT supply");
+        TokenInfo storage tokens = AllowedCrypto[_pid];
+        IERC20 paytoken = tokens.paytoken;
+        uint256 _cost = tokens.costvalue;
+
+        if(msg.sender != owner()) {
+          require(msg.value == _cost * _mintAmount, "Not enough balance to complete transaction.");
+
+          for (uint256 i = 1; i <= _mintAmount; i ++) {
+            paytoken.transferFrom(msg.sender, address(this), _cost);
+            _safeMint(_to, _mintedIds + i);
+            mintedIds.increment();
+          }
         }
       }
 
@@ -96,6 +115,20 @@ contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
       function pause(bool _state) public onlyOwner {
         paused = _state;
       }
+
+      // get the cost of the NFT in choosen currency 
+       function getNFTCost(uint256 _pid) public view virtual returns(uint256) {
+        TokenInfo storage tokens = AllowedCrypto[_pid];
+        uint256 _cost = tokens.costvalue;
+        return _cost;
+      }
+
+      // get choosen currency token address
+      function getCryptotoken(uint256 _pid) public view virtual returns(IERC20) {
+        TokenInfo storage tokens = AllowedCrypto[_pid];
+        IERC20 paytoken = tokens.paytoken;
+        return paytoken;
+      }
       
       // Withdraw funds from contract (only owner)
       function withdraw(uint256 _pid) public payable onlyOwner nonReentrant {
@@ -104,4 +137,5 @@ contract NFTCollection is ERC721Enumerable, Ownable, ReentrancyGuard {
         (bool success, ) = payable(msg.sender).call{value: paytoken.balanceOf(address(this))}("");
         require(success, "Funds were not withdrawn");
       }
+
 }

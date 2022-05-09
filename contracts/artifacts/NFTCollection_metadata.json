@@ -231,6 +231,44 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "_pid",
+						"type": "uint256"
+					}
+				],
+				"name": "getCryptotoken",
+				"outputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pid",
+						"type": "uint256"
+					}
+				],
+				"name": "getNFTCost",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "owner",
 						"type": "address"
@@ -289,11 +327,6 @@
 						"internalType": "uint256",
 						"name": "_mintAmount",
 						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_pid",
-						"type": "uint256"
 					}
 				],
 				"name": "mint",
@@ -312,6 +345,29 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_mintAmount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_pid",
+						"type": "uint256"
+					}
+				],
+				"name": "mintpid",
+				"outputs": [],
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -882,11 +938,11 @@
 			]
 		},
 		"contracts/NFTCollection.sol": {
-			"keccak256": "0x2e6ae23013fce452960868575f8f90e28ee40e8d3dab3cc8e44dc6502b3c171c",
+			"keccak256": "0xe38c8b19fb23bad2fbbd24a44a27afb01a6901924d07d11ff296b122f158f7dd",
 			"license": "MIT LICENSE",
 			"urls": [
-				"bzz-raw://366f165645f2c59b43ac53f124d3deb4bcc3a4e1862c556ce28883459e0fb9eb",
-				"dweb:/ipfs/QmVd9UA2Dc4rsn722YKpPy3dTgNN8j3CKwtgGN5PFHrvws"
+				"bzz-raw://7b21737e7a7b302e8e314ec8a1847196f86595d1a2f299bd79d925dedc282bed",
+				"dweb:/ipfs/QmXsNyo9d42oLpBgEPRxG2fKZmXSp2fHUqtttZY5hi6D53"
 			]
 		}
 	},
