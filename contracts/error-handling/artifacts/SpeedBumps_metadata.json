@@ -1,0 +1,60 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "requestWithdrawl",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/error-handling/SpeedBumps.sol": "SpeedBumps"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/error-handling/SpeedBumps.sol": {
+			"keccak256": "0x005a5773397de45f066c387ec84cfe1ae0aac2ed4d32e96bba887d78270c1446",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9c21d329a946219e16a0220bfab35071098fb990d852f06298921e0aa8d2fd10",
+				"dweb:/ipfs/QmXAL5juQEY8mBRyrmMkWFxT3Rp7N5GNShKJzX2zjLUHNj"
+			]
+		}
+	},
+	"version": 1
+}

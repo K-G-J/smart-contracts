@@ -1,0 +1,67 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "deposit",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "toggleContractActive",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/error-handling/CircuitBreakers.sol": "CircuitBreakers"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/error-handling/CircuitBreakers.sol": {
+			"keccak256": "0xb7e07b5c25c4daf8da11837ff50b8e2e22c2d117f6b20e444690ccc647550206",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7b5b3cf9832e9faa486c335b5cae2ea1cf0c7072fba5e9d7d97693e42f3fe9d2",
+				"dweb:/ipfs/QmcKFacnMZguLsWF9dtG1TWyghnC8oXiCpbqJwJVYMjsLu"
+			]
+		}
+	},
+	"version": 1
+}
