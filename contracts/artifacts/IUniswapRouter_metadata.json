@@ -383,11 +383,11 @@
 			]
 		},
 		"contracts/SampleVault.sol": {
-			"keccak256": "0x46064c13b89c160b42af326a4a242e91f097655d9ff1181bcca71469f430f23c",
+			"keccak256": "0xecf71f68f496a3851208ea2edbf796770875edcf50afcc51399269e68e950714",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://d8de6857549730d765d73111e2c178c5f663c596a54e19d1aa44b92b57602cde",
-				"dweb:/ipfs/QmXC9N6C8xTnmJbFnbkyMZMUxqvDHDdydcYGgFBKBjECce"
+				"bzz-raw://c4c4a418ca0aceed30e93ea6ba58d70b147216327edefa44b0bc4abb39eb5aaf",
+				"dweb:/ipfs/QmfHxecFx1A7rbMYBz5Pw8hPvEuzmrP2zxUQDCrkmReLVL"
 			]
 		},
 		"hardhat/console.sol": {
