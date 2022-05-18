@@ -36,6 +36,26 @@
 						"internalType": "uint32",
 						"name": "callbackGasLimit",
 						"type": "uint32"
+					},
+					{
+						"internalType": "address",
+						"name": "charity1",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "charity2",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "charity3",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "fundingWallet",
+						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -157,7 +177,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "charityChoice",
+						"type": "uint256"
+					}
+				],
 				"name": "enterRaffle",
 				"outputs": [],
 				"stateMutability": "payable",
@@ -335,7 +361,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Raffle.sol": "Raffle"
+			"contracts/CharityRaffle.sol": "Raffle"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -373,12 +399,12 @@
 				"dweb:/ipfs/QmYS2z7xmTArVpxiNM8Czj1qKL56HMw61Lzdjto9m3B5PL"
 			]
 		},
-		"contracts/Raffle.sol": {
-			"keccak256": "0x577ede2a1a5cd4aa4aafef12cd8121bde9dbb389b119ddb732114a42078b614b",
+		"contracts/CharityRaffle.sol": {
+			"keccak256": "0x710aa7f56fb4109543c81195436a443056bad8cdeae757129ef29535f03649ba",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://205cbbc4217ebf3287317d77eb352d2a71e8cc3975512a8c31bac0fb2790ed9f",
-				"dweb:/ipfs/QmUeaAJHDsmZ9XRMKVS3TqyBpgYDvAokjU5gTjX45Bb68W"
+				"bzz-raw://2640a409a32888132f36f4214965b99f7b886f291649e61e581420a4ea2b291d",
+				"dweb:/ipfs/QmdEBaeVxk49CSXitUBsr43PFoQFhmiSww1sJ8ejP8S3Rz"
 			]
 		},
 		"hardhat/console.sol": {
