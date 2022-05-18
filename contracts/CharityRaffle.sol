@@ -7,6 +7,7 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
 import "hardhat/console.sol";
 
+error Raffle__FundingContractFailed();
 error Raffle__UpkeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 raffleState);
 error Raffle__TransferFailed();
 error Raffle__SendMoreToEnterRaffle();
@@ -33,6 +34,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     // Lottery Variables
     uint256 private immutable i_interval;
     uint256 private immutable i_entranceFee;
+    uint256 private immutable i_jackpot;
     uint256 private s_highestDonations;
     address private s_recentWinner;
     address payable private immutable i_charity1;
@@ -59,6 +61,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         bytes32 gasLane, // keyHash
         uint256 interval,
         uint256 entranceFee,
+        uint256 jackpot,
         uint32 callbackGasLimit,
         address charity1,
         address charity2,
@@ -70,12 +73,17 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         i_interval = interval;
         i_subscriptionId = subscriptionId;
         i_entranceFee = entranceFee;
+        i_jackpot = jackpot;
         s_raffleState = RaffleState.OPEN;
         i_callbackGasLimit = callbackGasLimit;
         i_charity1 = charity1;
         i_charity2 = charity2;
         i_charity3 = charity3;
         i_fundingWallet = fundingWallet;
+        (bool success, ) = payable(address(this)).call{value: i_jackpot}("");
+        if (!= success) {
+            revert Raffle__FundingContractFailed();
+        }
     }
 
     function enterRaffle(uint256 charityChoice) public payable {
