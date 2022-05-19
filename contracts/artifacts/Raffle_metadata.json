@@ -147,7 +147,7 @@
 				"anonymous": false,
 				"inputs": [
 					{
-						"indexed": false,
+						"indexed": true,
 						"internalType": "address",
 						"name": "charity",
 						"type": "address"
@@ -502,11 +502,11 @@
 			]
 		},
 		"contracts/CharityRaffle.sol": {
-			"keccak256": "0xe9d1f8e1124c6b2ae1190cf69eb40b185694e491aa2f17c19ae8c95a2d9d13e9",
+			"keccak256": "0xda2d89adb3b4c623523fbee9e69d4eb7e158cb2640783fbb5d8121284d096d94",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f3a9ab70abc09b5357724c486370d5fec9ee4a9ea50d69779a1f38dc6112f142",
-				"dweb:/ipfs/QmXgcHZHsXvdBdK9SUv1K3WVvh22CgL6vj84m3X392Knt7"
+				"bzz-raw://1734ece1fbda2d9ccb2e60df3b7e64d8f40a274a2740f7f0bb81f0b64195585e",
+				"dweb:/ipfs/QmZQGqxQHbeuJuV1cUT7sN8XjrbCHtmYPvAJCuaHuhLyVP"
 			]
 		},
 		"hardhat/console.sol": {

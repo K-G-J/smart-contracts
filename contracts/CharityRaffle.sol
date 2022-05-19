@@ -45,7 +45,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     address private immutable i_fundingWallet;
     address private s_charityWinner;
     
-    address [] private s_players;
+    address[] private s_players;
     RaffleState private s_raffleState;
 
     mapping (address => uint256) donations;
@@ -54,7 +54,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     event RequestedRaffleWinner(uint256 indexed requestId);
     event RaffleEnter(address indexed player);
     event WinnerPicked(address indexed player);
-    event CharityWinnerPicked(address charity);
+    event CharityWinnerPicked(address indexed charity);
 
     /* Functions */
     constructor(
@@ -80,7 +80,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         i_charity2 = charity2;
         i_charity3 = charity3;
         i_fundingWallet = fundingWallet;
-        (bool success, ) = payable(address(this)).call{value: i_jackpot}("");
+        (bool success, ) = payable(address(this)).call{value: jackpot}("");
         if (!success) {
             revert Raffle__FundingContractFailed();
         }
@@ -158,7 +158,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         uint256 indexOfWinner = randomWords[0] % s_players.length;
         address recentWinner = s_players[indexOfWinner];
         s_recentWinner = recentWinner;
-        s_players = new address payable[](0);
+        s_players = new address[](0);
         s_raffleState = RaffleState.CLOSED;
         (bool success, ) = payable(recentWinner).call{value: address(this).balance}(""); // should be i_jackpot
         if (!success) {
@@ -178,8 +178,8 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         data[2] = charity3Total;
         uint256[] memory sortedData = sort(data); // sortedData[2] = highest value
         if (tie) {
-            if (sortedData[2] == charity1Total && sortedData[2] == charity2Total && sortedData[2] == charity3Total ) {
             // three-way-tie 
+            if (charity1Total == charity2Total && charity1Total == charity3Total) {
             charity1Total += randomWords[1];
             charity2Total += randomWords[2];
             charity3Total += randomWords[3];
@@ -205,8 +205,8 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
                 emit CharityWinnerPicked(i_charity3);
                 }
             }
+            // charity1 and charity2 tie
             if (sortedData[2] == charity1Total && sortedData[2] == charity2Total) {
-                // charity1 and charity2 tie
                 charity1Total += randomWords[1];
                 charity2Total += randomWords[2];
                 s_highestDonations = charity1Total - randomWords[1];
@@ -221,8 +221,8 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
                     emit CharityWinnerPicked(i_charity2);
                 }
             }
+            // charity1 and charity3 tie
             if (sortedData[2] == charity1Total && sortedData[2] == charity3Total) {
-                // charity1 and charity3 tie
                 charity1Total += randomWords[1];
                 charity3Total += randomWords[2];
                 s_highestDonations = charity1Total - randomWords[1];
@@ -237,8 +237,8 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
                     emit CharityWinnerPicked(i_charity3);
                 }
             }
+            // charity2 and charity3 tie
             if (sortedData[2] == charity2Total && sortedData[2] == charity3Total) {
-                // charity2 and charity3 tie
                 charity2Total += randomWords[1];
                 charity3Total += randomWords[2];
                 s_highestDonations = charity2Total - randomWords[1];
@@ -277,25 +277,29 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
          emit WinnerPicked(recentWinner);
     }
 
-    function checkForTie() internal returns (bool tie) {
-        if (donations[i_charity1] == donations[i_charity2] || donations[i_charity1] == donations[i_charity3] || donations[i_charity2] == donations[i_charity3]) {
+    function checkForTie() internal view returns (bool tie) {
+        if (
+        donations[i_charity1] == donations[i_charity2] || 
+        donations[i_charity1] == donations[i_charity3] || 
+        donations[i_charity2] == donations[i_charity3]
+        ) {
             tie = true; 
         }
     }
 
     function sort(uint256[] memory data) internal returns(uint256[] memory) {
-       quickSort(data, uint256(0), uint256(data.length - 1));
+       quickSort(data, int(0), int(data.length - 1));
        return data;
     }
     
-    function quickSort(uint256[] memory arr, uint256 left, uint256 right) internal { 
-        uint256 i = left;
-        uint256 j = right;
+    function quickSort(uint256[] memory arr, int left, int right) internal {
+        int i = left;
+        int j = right;
         if(i==j) return;
         uint256 pivot = arr[uint256(left + (right - left) / 2)];
         while (i <= j) {
             while (arr[uint256(i)] < pivot) i++;
-            while (pivot < arr[uint(j)]) j--;
+            while (pivot < arr[uint256(j)]) j--;
             if (i <= j) {
                 (arr[uint256(i)], arr[uint256(j)]) = (arr[uint256(j)], arr[uint256(i)]);
                 i++;
@@ -318,7 +322,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         uint256 mostDonations = s_highestDonations;
         s_highestDonations = 0;
         address charityWinner = s_charityWinner;
-        s_charityWinner = payable(address(0));
+        s_charityWinner = address(0);
         (bool success, ) = payable(address(this)).call{value: mostDonations * i_entranceFee}("");
         if (!success) {
             revert Raffle__FundingToMatchTransferFailed();
