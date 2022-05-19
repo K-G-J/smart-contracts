@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.7+commit.e28d00a7"
+		"version": "0.8.14+commit.80d49f37"
 	},
 	"language": "Solidity",
 	"output": {
@@ -24,12 +24,12 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "interval",
+						"name": "entranceFee",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "entranceFee",
+						"name": "jackpot",
 						"type": "uint256"
 					},
 					{
@@ -79,17 +79,47 @@
 			},
 			{
 				"inputs": [],
+				"name": "Raffle__CharityTransferFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "Raffle__DonationMatchFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "Raffle__FundingContractFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "Raffle__FundingToMatchTransferFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "Raffle__JackpotTransferFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "Raffle__MustBeFunder",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "Raffle__RaffleNotClosed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
 				"name": "Raffle__RaffleNotOpen",
 				"type": "error"
 			},
 			{
 				"inputs": [],
 				"name": "Raffle__SendMoreToEnterRaffle",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "Raffle__TransferFailed",
 				"type": "error"
 			},
 			{
@@ -112,6 +142,19 @@
 				],
 				"name": "Raffle__UpkeepNotNeeded",
 				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "charity",
+						"type": "address"
+					}
+				],
+				"name": "CharityWinnerPicked",
+				"type": "event"
 			},
 			{
 				"anonymous": false,
@@ -191,6 +234,45 @@
 			},
 			{
 				"inputs": [],
+				"name": "getAllPlayers",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getCharities",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "charities",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getCharityWinner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "getEntranceFee",
 				"outputs": [
 					{
@@ -204,7 +286,20 @@
 			},
 			{
 				"inputs": [],
-				"name": "getInterval",
+				"name": "getFundingWallet",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getHighestDonations",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -217,7 +312,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "getLastTimeStamp",
+				"name": "getJackpot",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -313,6 +408,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "matchDonations",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "bytes",
@@ -400,11 +502,11 @@
 			]
 		},
 		"contracts/CharityRaffle.sol": {
-			"keccak256": "0x710aa7f56fb4109543c81195436a443056bad8cdeae757129ef29535f03649ba",
+			"keccak256": "0xe9d1f8e1124c6b2ae1190cf69eb40b185694e491aa2f17c19ae8c95a2d9d13e9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2640a409a32888132f36f4214965b99f7b886f291649e61e581420a4ea2b291d",
-				"dweb:/ipfs/QmdEBaeVxk49CSXitUBsr43PFoQFhmiSww1sJ8ejP8S3Rz"
+				"bzz-raw://f3a9ab70abc09b5357724c486370d5fec9ee4a9ea50d69779a1f38dc6112f142",
+				"dweb:/ipfs/QmXgcHZHsXvdBdK9SUv1K3WVvh22CgL6vj84m3X392Knt7"
 			]
 		},
 		"hardhat/console.sol": {

@@ -9,11 +9,14 @@ import "hardhat/console.sol";
 
 error Raffle__FundingContractFailed();
 error Raffle__UpkeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 raffleState);
-error Raffle__TransferFailed();
+error Raffle__CharityTransferFailed();
 error Raffle__SendMoreToEnterRaffle();
 error Raffle__RaffleNotOpen();
 error Raffle__RaffleNotClosed();
+error Raffle__JackpotTransferFailed();
 error Raffle__MustBeFunder();
+error Raffle__FundingToMatchTransferFailed();
+error Raffle__DonationMatchFailed();
 
 contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     /* Type declarations */
@@ -26,24 +29,23 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     // Chainlink VRF Variables
     VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
-    uint32 private constant NUM_WORDS = 1;
+    uint32 private constant NUM_WORDS = 4;
     uint32 private immutable i_callbackGasLimit;
     uint64 private immutable i_subscriptionId;
     bytes32 private immutable i_gasLane;
 
     // Lottery Variables
-    uint256 private immutable i_interval;
     uint256 private immutable i_entranceFee;
     uint256 private immutable i_jackpot;
     uint256 private s_highestDonations;
     address private s_recentWinner;
-    address payable private immutable i_charity1;
-    address payable private immutable i_charity2;
-    address payable private immutable i_charity3;
+    address private immutable i_charity1;
+    address private immutable i_charity2;
+    address private immutable i_charity3;
     address private immutable i_fundingWallet;
-    address payable private s_charityWinner;
+    address private s_charityWinner;
     
-    address payable[] private s_players;
+    address [] private s_players;
     RaffleState private s_raffleState;
 
     mapping (address => uint256) donations;
@@ -59,7 +61,6 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         address vrfCoordinatorV2,
         uint64 subscriptionId,
         bytes32 gasLane, // keyHash
-        uint256 interval,
         uint256 entranceFee,
         uint256 jackpot,
         uint32 callbackGasLimit,
@@ -70,7 +71,6 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     ) VRFConsumerBaseV2(vrfCoordinatorV2) {
         i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
         i_gasLane = gasLane;
-        i_interval = interval;
         i_subscriptionId = subscriptionId;
         i_entranceFee = entranceFee;
         i_jackpot = jackpot;
@@ -81,7 +81,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         i_charity3 = charity3;
         i_fundingWallet = fundingWallet;
         (bool success, ) = payable(address(this)).call{value: i_jackpot}("");
-        if (!= success) {
+        if (!success) {
             revert Raffle__FundingContractFailed();
         }
     }
@@ -96,21 +96,21 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         if (charityChoice == 1) {
             (bool success, ) = i_charity1.call{value: msg.value}("");
             if (!success) {
-                revert Raffle__TransferFailed();
+                revert Raffle__CharityTransferFailed();
             }
             donations[i_charity1]++;
         }
          if (charityChoice == 2) {
             (bool success, ) = i_charity2.call{value: msg.value}("");
             if (!success) {
-                revert Raffle__TransferFailed();
+                revert Raffle__CharityTransferFailed();
             }
             donations[i_charity2]++;
         }
          if (charityChoice == 3) {
             (bool success, ) = i_charity3.call{value: msg.value}("");
             if (!success) {
-                revert Raffle__TransferFailed();
+                revert Raffle__CharityTransferFailed();
             }
             donations[i_charity3]++;
         }
@@ -122,13 +122,11 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
      * This is the function that the Chainlink Keeper nodes call
      * they look for `upkeepNeeded` to return True.
      * the following should be true for this to return true:
-     * 1. The time interval has passed between raffle runs.
-     * 2. The lottery is open.
-     * 3. The contract has ETH.
-     * 4. Implicity, your subscription is funded with LINK.
+     * 1. The lottery is open.
+     * 2. The contract has ETH.
+     * 3. Implicity, your subscription is funded with LINK.
      */
-    function checkUpkeep(bytes memory /* checkData */) public view override returns (bool upkeepNeeded, bytes memory /* performData */)
-    {
+    function checkUpkeep(bytes memory /* checkData */) public view override returns (bool upkeepNeeded, bytes memory /* performData */) {
         bool isOpen = RaffleState.OPEN == s_raffleState;
         bool hasPlayers = s_players.length > 0;
         bool hasBalance = address(this).balance > 0;
@@ -156,40 +154,158 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     }
 
     function fulfillRandomWords(uint256, /* requestId */ uint256[] memory randomWords) internal override {
+        // declare player winner
         uint256 indexOfWinner = randomWords[0] % s_players.length;
-        address payable recentWinner = s_players[indexOfWinner];
+        address recentWinner = s_players[indexOfWinner];
         s_recentWinner = recentWinner;
         s_players = new address payable[](0);
         s_raffleState = RaffleState.CLOSED;
-        (bool success, ) = recentWinner.call{value: address(this).balance}("");
+        (bool success, ) = payable(recentWinner).call{value: address(this).balance}(""); // should be i_jackpot
         if (!success) {
-            revert Raffle__TransferFailed();
+            revert Raffle__JackpotTransferFailed();
         }
-        if (donations[i_charity1] > donations[i_charity2] && donations[i_charity1] > donations[i_charity3]) {
-            s_highestDonations = donations[i_charity1];
-            s_charityWinner = i_charity1;
-            donations[i_charity1] = 0;
-            donations[i_charity2] = 0;
-            donations[i_charity3] = 0;
-            emit CharityWinnerPicked(i_charity1);
-        }
-        if (donations[i_charity2] > donations[i_charity1] && donations[i_charity2] > donations[i_charity3]) {
-            s_highestDonations = donations[i_charity2];
-            s_charityWinner = i_charity2;
-            donations[i_charity1] = 0;
-            donations[i_charity2] = 0;
-            donations[i_charity3] = 0;
-            emit CharityWinnerPicked(i_charity2);
-        }
-        if (donations[i_charity3] > donations[i_charity1] && donations[i_charity3] > donations[i_charity1]) {
-            s_highestDonations = donations[i_charity3];
-            s_charityWinner = i_charity3;
-            donations[i_charity1] = 0;
-            donations[i_charity2] = 0;
-            donations[i_charity3] = 0;
-            emit CharityWinnerPicked(i_charity3);
+        // handle if there is charity donations tie 
+        bool tie = checkForTie();
+        uint256 charity1Total = donations[i_charity1];
+        donations[i_charity1] = 0;
+        uint256 charity2Total = donations[i_charity2];
+        donations[i_charity2] = 0;
+        uint256 charity3Total =  donations[i_charity3];
+        donations[i_charity3] = 0;
+        uint256[] memory data = new uint256[](3);
+        data[0] = charity1Total;
+        data[1] = charity2Total;
+        data[2] = charity3Total;
+        uint256[] memory sortedData = sort(data); // sortedData[2] = highest value
+        if (tie) {
+            if (sortedData[2] == charity1Total && sortedData[2] == charity2Total && sortedData[2] == charity3Total ) {
+            // three-way-tie 
+            charity1Total += randomWords[1];
+            charity2Total += randomWords[2];
+            charity3Total += randomWords[3];
+            s_highestDonations = charity1Total - randomWords[1];
+            uint256[] memory newData = new uint256[](3);
+            newData[0] = charity1Total;
+            newData[1] = charity2Total;
+            newData[2] = charity3Total;
+            uint256[] memory newSortedData = sort(newData);
+            if (newSortedData[2] == charity1Total) {
+                // charity1 wins
+                s_charityWinner = i_charity1;
+                emit CharityWinnerPicked(i_charity1);
+            }
+            if (newSortedData[2] == charity2Total) {
+                //charity2 wins
+                s_charityWinner = i_charity2;
+                emit CharityWinnerPicked(i_charity2);
+            }
+            else {
+                // charity3 wins
+                s_charityWinner = i_charity3;
+                emit CharityWinnerPicked(i_charity3);
+                }
+            }
+            if (sortedData[2] == charity1Total && sortedData[2] == charity2Total) {
+                // charity1 and charity2 tie
+                charity1Total += randomWords[1];
+                charity2Total += randomWords[2];
+                s_highestDonations = charity1Total - randomWords[1];
+                if (charity1Total > charity2Total) {
+                    // charity1 wins
+                    s_charityWinner = i_charity1;
+                    emit CharityWinnerPicked(i_charity1);
+                }
+                else {
+                    //charity2 wins
+                    s_charityWinner = i_charity2;
+                    emit CharityWinnerPicked(i_charity2);
+                }
+            }
+            if (sortedData[2] == charity1Total && sortedData[2] == charity3Total) {
+                // charity1 and charity3 tie
+                charity1Total += randomWords[1];
+                charity3Total += randomWords[2];
+                s_highestDonations = charity1Total - randomWords[1];
+                if (charity1Total > charity3Total) {
+                    // charity1 wins
+                    s_charityWinner = i_charity1;
+                    emit CharityWinnerPicked(i_charity1);
+                }
+                else {
+                    //charity3 wins
+                    s_charityWinner = i_charity3;
+                    emit CharityWinnerPicked(i_charity3);
+                }
+            }
+            if (sortedData[2] == charity2Total && sortedData[2] == charity3Total) {
+                // charity2 and charity3 tie
+                charity2Total += randomWords[1];
+                charity3Total += randomWords[2];
+                s_highestDonations = charity2Total - randomWords[1];
+                if (charity2Total > charity3Total) {
+                    // charity2 wins
+                    s_charityWinner = i_charity2;
+                    emit CharityWinnerPicked(i_charity2);
+                }
+                else {
+                    //charity3 wins
+                    s_charityWinner = i_charity3;
+                    emit CharityWinnerPicked(i_charity3);
+                }
+            }
+        } else {
+            // not a tie
+            if (charity1Total > charity2Total && charity1Total > charity3Total) {
+                // charity1 wins
+                s_highestDonations = charity1Total;
+                s_charityWinner = i_charity1;
+                emit CharityWinnerPicked(i_charity1);
+            }
+            if (charity2Total > charity1Total && charity2Total > charity3Total) {
+                // charity2 wins 
+                s_highestDonations = charity2Total;
+                s_charityWinner = i_charity2;
+                emit CharityWinnerPicked(i_charity2);
+            }
+            if (charity3Total > charity1Total && charity3Total > charity2Total) {
+                // charity3 wins
+                s_highestDonations = charity3Total;
+                s_charityWinner = i_charity3;
+                emit CharityWinnerPicked(i_charity3);
+            }
         }
          emit WinnerPicked(recentWinner);
+    }
+
+    function checkForTie() internal returns (bool tie) {
+        if (donations[i_charity1] == donations[i_charity2] || donations[i_charity1] == donations[i_charity3] || donations[i_charity2] == donations[i_charity3]) {
+            tie = true; 
+        }
+    }
+
+    function sort(uint256[] memory data) internal returns(uint256[] memory) {
+       quickSort(data, uint256(0), uint256(data.length - 1));
+       return data;
+    }
+    
+    function quickSort(uint256[] memory arr, uint256 left, uint256 right) internal { 
+        uint256 i = left;
+        uint256 j = right;
+        if(i==j) return;
+        uint256 pivot = arr[uint256(left + (right - left) / 2)];
+        while (i <= j) {
+            while (arr[uint256(i)] < pivot) i++;
+            while (pivot < arr[uint(j)]) j--;
+            if (i <= j) {
+                (arr[uint256(i)], arr[uint256(j)]) = (arr[uint256(j)], arr[uint256(i)]);
+                i++;
+                j--;
+            }
+        }
+        if (left < j)
+            quickSort(arr, left, j);
+        if (i < right)
+            quickSort(arr, i, right);
     }
 
     function matchDonations() external {
@@ -201,47 +317,71 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         }
         uint256 mostDonations = s_highestDonations;
         s_highestDonations = 0;
+        address charityWinner = s_charityWinner;
+        s_charityWinner = payable(address(0));
         (bool success, ) = payable(address(this)).call{value: mostDonations * i_entranceFee}("");
         if (!success) {
-            revert Raffle__TransferFailed();
+            revert Raffle__FundingToMatchTransferFailed();
+        }
+        (bool donationMatch, ) = payable(charityWinner).call{value: address(this).balance}("");
+        if (!donationMatch) {
+            revert Raffle__DonationMatchFailed();
         }
     }
 
     /** Getter Functions */
 
-    function getRaffleState() public view returns (RaffleState) {
+    function getRaffleState() external view returns (RaffleState) {
         return s_raffleState;
     }
 
-    function getNumWords() public pure returns (uint256) {
+    function getNumWords() external pure returns (uint256) {
         return NUM_WORDS;
     }
 
-    function getRequestConfirmations() public pure returns (uint256) {
+    function getRequestConfirmations() external pure returns (uint256) {
         return REQUEST_CONFIRMATIONS;
     }
 
-    function getRecentWinner() public view returns (address) {
+    function getRecentWinner() external view returns (address) {
         return s_recentWinner;
     }
 
-    function getPlayer(uint256 index) public view returns (address) {
+     function getCharityWinner() external view returns (address) {
+        return s_charityWinner;
+    }
+
+    function getPlayer(uint256 index) external view returns (address) {
         return s_players[index];
     }
-
-    function getLastTimeStamp() public view returns (uint256) {
-        return s_lastTimeStamp;
+    
+    function getAllPlayers() external view returns (address[] memory) {
+        return s_players;
     }
 
-    function getInterval() public view returns (uint256) {
-        return i_interval;
+    function getCharities() external view returns (address[] memory charities) {
+        charities[0] = i_charity1;
+        charities[1] = i_charity2;
+        charities[2] = i_charity3;
     }
 
-    function getEntranceFee() public view returns (uint256) {
+    function getEntranceFee() external view returns (uint256) {
         return i_entranceFee;
     }
 
-    function getNumberOfPlayers() public view returns (uint256) {
+    function getNumberOfPlayers() external view returns (uint256) {
         return s_players.length;
+    }
+
+    function getFundingWallet() external view returns (address) {
+        return i_fundingWallet;
+    }
+
+    function getHighestDonations() external view returns (uint256) {
+        return s_highestDonations;
+    }
+
+    function getJackpot() external view returns (uint256) {
+        return i_jackpot;
     }
 }
