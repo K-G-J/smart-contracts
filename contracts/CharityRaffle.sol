@@ -172,18 +172,19 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         donations[i_charity2] = 0;
         uint256 charity3Total =  donations[i_charity3];
         donations[i_charity3] = 0;
-        uint256[] memory data = new uint256[](3);
-        data[0] = charity1Total;
-        data[1] = charity2Total;
-        data[2] = charity3Total;
-        uint256[] memory sortedData = sort(data); // sortedData[2] = highest value
         if (tie) {
+            // find top two winners
+            uint256[] memory data = new uint256[](3);
+            data[0] = charity1Total;
+            data[1] = charity2Total;
+            data[2] = charity3Total;
+            uint256[] memory sortedData = sort(data); // sortedData[2] = highest value
             // three-way-tie 
             if (charity1Total == charity2Total && charity1Total == charity3Total) {
+            s_highestDonations = charity1Total;
             charity1Total += randomWords[1];
             charity2Total += randomWords[2];
             charity3Total += randomWords[3];
-            s_highestDonations = charity1Total - randomWords[1];
             uint256[] memory newData = new uint256[](3);
             newData[0] = charity1Total;
             newData[1] = charity2Total;
@@ -207,9 +208,9 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
             }
             // charity1 and charity2 tie
             if (sortedData[2] == charity1Total && sortedData[2] == charity2Total) {
+                s_highestDonations = charity1Total;
                 charity1Total += randomWords[1];
                 charity2Total += randomWords[2];
-                s_highestDonations = charity1Total - randomWords[1];
                 if (charity1Total > charity2Total) {
                     // charity1 wins
                     s_charityWinner = i_charity1;
@@ -223,9 +224,9 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
             }
             // charity1 and charity3 tie
             if (sortedData[2] == charity1Total && sortedData[2] == charity3Total) {
+                s_highestDonations = charity1Total;
                 charity1Total += randomWords[1];
                 charity3Total += randomWords[2];
-                s_highestDonations = charity1Total - randomWords[1];
                 if (charity1Total > charity3Total) {
                     // charity1 wins
                     s_charityWinner = i_charity1;
@@ -239,9 +240,9 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
             }
             // charity2 and charity3 tie
             if (sortedData[2] == charity2Total && sortedData[2] == charity3Total) {
+                s_highestDonations = charity2Total;
                 charity2Total += randomWords[1];
                 charity3Total += randomWords[2];
-                s_highestDonations = charity2Total - randomWords[1];
                 if (charity2Total > charity3Total) {
                     // charity2 wins
                     s_charityWinner = i_charity2;
