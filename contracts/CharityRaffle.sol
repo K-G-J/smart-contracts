@@ -18,7 +18,7 @@ error Raffle__MustBeFunder();
 error Raffle__FundingToMatchTransferFailed();
 error Raffle__DonationMatchFailed();
 
-contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
+contract CharityRaffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     /* Type declarations */
     enum RaffleState {
         OPEN,
