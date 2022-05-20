@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.14+commit.80d49f37"
+		"version": "0.8.7+commit.e28d00a7"
 	},
 	"language": "Solidity",
 	"output": {
@@ -515,11 +515,11 @@
 			]
 		},
 		"contracts/CharityRaffle.sol": {
-			"keccak256": "0x9d09a5bc979b8b96a3631ff249d662acb2bf52496b76fa9fccbd1462015512fc",
+			"keccak256": "0x9d124a8ff2424f03b2d68c4189542ddcc1e5c4777828f610e33fbf2584c514ae",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://11cf0fc01d60f127a60c9db5470540ad82445cf6fd53e833811c15f080aa0bb6",
-				"dweb:/ipfs/QmXDiFR2a4g1o9L9jBuEvDaVP3KANi3iMaeQ4bXFcBQYe2"
+				"bzz-raw://198819d3845350d1cbbd564995518a7847ca5d8f30eaee01b87b9187bcd42283",
+				"dweb:/ipfs/QmXx2EoH9P8JXrWAhGRn3VrYUNiMEfx1LDYtLsLT3xmq32"
 			]
 		},
 		"hardhat/console.sol": {
