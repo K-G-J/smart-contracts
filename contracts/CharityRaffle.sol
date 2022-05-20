@@ -9,7 +9,7 @@ import "hardhat/console.sol";
 
 error Raffle__FundingContractFailed();
 error Raffle__UpkeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 raffleState);
-error Raffle__CharityTransferFailed();
+error Raffle__CharityTransferFailed(address charity);
 error Raffle__SendMoreToEnterRaffle();
 error Raffle__RaffleNotOpen();
 error Raffle__RaffleNotClosed();
@@ -44,6 +44,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     address private immutable i_charity3;
     address private immutable i_fundingWallet;
     address private s_charityWinner;
+    bool private s_matchFunded;
     
     address[] private s_players;
     RaffleState private s_raffleState;
@@ -68,7 +69,8 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         address charity2,
         address charity3,
         address fundingWallet
-    ) VRFConsumerBaseV2(vrfCoordinatorV2) {
+    ) VRFConsumerBaseV2(vrfCoordinatorV2) 
+    {
         i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
         i_gasLane = gasLane;
         i_subscriptionId = subscriptionId;
@@ -96,21 +98,21 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         if (charityChoice == 1) {
             (bool success, ) = i_charity1.call{value: msg.value}("");
             if (!success) {
-                revert Raffle__CharityTransferFailed();
+                revert Raffle__CharityTransferFailed(i_charity1);
             }
             donations[i_charity1]++;
         }
          if (charityChoice == 2) {
             (bool success, ) = i_charity2.call{value: msg.value}("");
             if (!success) {
-                revert Raffle__CharityTransferFailed();
+                revert Raffle__CharityTransferFailed(i_charity2);
             }
             donations[i_charity2]++;
         }
          if (charityChoice == 3) {
             (bool success, ) = i_charity3.call{value: msg.value}("");
             if (!success) {
-                revert Raffle__CharityTransferFailed();
+                revert Raffle__CharityTransferFailed(i_charity3);
             }
             donations[i_charity3]++;
         }
@@ -288,7 +290,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         }
     }
 
-    function sort(uint256[] memory data) internal returns(uint256[] memory) {
+    function sort(uint256[] memory data) internal returns (uint256[] memory) {
        quickSort(data, int(0), int(data.length - 1));
        return data;
     }
@@ -313,7 +315,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
             quickSort(arr, i, right);
     }
 
-    function matchDonations() external {
+    function fundDonationMatch() external {
         if (s_raffleState != RaffleState.CLOSED) {
             revert Raffle__RaffleNotClosed();
         }
@@ -322,12 +324,26 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         }
         uint256 mostDonations = s_highestDonations;
         s_highestDonations = 0;
-        address charityWinner = s_charityWinner;
-        s_charityWinner = address(0);
-        (bool success, ) = payable(address(this)).call{value: mostDonations * i_entranceFee}("");
-        if (!success) {
+        (bool fundingSuccess, ) = payable(address(this)).call{value: mostDonations * i_entranceFee}("");
+        if (!fundingSuccess) {
             revert Raffle__FundingToMatchTransferFailed();
         }
+        s_matchFunded = true;
+    }
+
+    function DonationMatch() external {
+        if (s_raffleState != RaffleState.CLOSED) {
+            revert Raffle__RaffleNotClosed();
+        }
+        if (msg.sender != i_fundingWallet) {
+            revert Raffle__MustBeFunder();
+        }
+        if (!s_matchFunded) {
+            revert Raffle__FundingToMatchTransferFailed();
+        }
+        address charityWinner = s_charityWinner;
+        s_charityWinner = address(0);
+        s_matchFunded = false;
         (bool donationMatch, ) = payable(charityWinner).call{value: address(this).balance}("");
         if (!donationMatch) {
             revert Raffle__DonationMatchFailed();

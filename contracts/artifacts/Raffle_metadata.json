@@ -78,7 +78,13 @@
 				"type": "error"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "charity",
+						"type": "address"
+					}
+				],
 				"name": "Raffle__CharityTransferFailed",
 				"type": "error"
 			},
@@ -196,6 +202,13 @@
 				"type": "event"
 			},
 			{
+				"inputs": [],
+				"name": "DonationMatch",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "bytes",
@@ -230,6 +243,13 @@
 				"name": "enterRaffle",
 				"outputs": [],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "fundDonationMatch",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -408,13 +428,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "matchDonations",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "bytes",
@@ -502,11 +515,11 @@
 			]
 		},
 		"contracts/CharityRaffle.sol": {
-			"keccak256": "0xda2d89adb3b4c623523fbee9e69d4eb7e158cb2640783fbb5d8121284d096d94",
+			"keccak256": "0xf8cce8d6418cf7c8b200b2654941d16328368e0a6b7a758a17d0371eea6844d5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1734ece1fbda2d9ccb2e60df3b7e64d8f40a274a2740f7f0bb81f0b64195585e",
-				"dweb:/ipfs/QmZQGqxQHbeuJuV1cUT7sN8XjrbCHtmYPvAJCuaHuhLyVP"
+				"bzz-raw://e275714539ba04555bf7bf46468532132e24fe7e410b021c1290b7749b79c808",
+				"dweb:/ipfs/QmesXmpmoE1YZBTjHUFbA8pqgfGGNCj97MdJUtUMEjtiUp"
 			]
 		},
 		"hardhat/console.sol": {
