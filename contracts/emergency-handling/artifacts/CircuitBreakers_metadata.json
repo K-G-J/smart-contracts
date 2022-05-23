@@ -40,7 +40,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/error-handling/CircuitBreakers.sol": "CircuitBreakers"
+			"contracts/emergency-handling/CircuitBreakers.sol": "CircuitBreakers"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -54,7 +54,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/error-handling/CircuitBreakers.sol": {
+		"contracts/emergency-handling/CircuitBreakers.sol": {
 			"keccak256": "0xb7e07b5c25c4daf8da11837ff50b8e2e22c2d117f6b20e444690ccc647550206",
 			"license": "MIT",
 			"urls": [
