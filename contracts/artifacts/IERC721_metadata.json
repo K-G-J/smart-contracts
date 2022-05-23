@@ -42,7 +42,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/NFTEnglishAuction.sol": "IERC721"
+			"contracts/NFTDutchAuction.sol": "IERC721"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -56,12 +56,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/NFTEnglishAuction.sol": {
-			"keccak256": "0xb818196cfb6ad87993da1765c0eb74cf56d2ad64583b67ce64f52369d44796b7",
+		"contracts/NFTDutchAuction.sol": {
+			"keccak256": "0xbf86d498e4470957348e47ebebce7c85cd43c090101ca0f52c9100c922837bc9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0f482a03c34f492532babccb9a29e8fd909fc9a0bc15b9aef59c5241d5019fb2",
-				"dweb:/ipfs/QmSiUyX1pRMdcPDobqioNXaFpDST7v2kphSmgs4Bojp2uj"
+				"bzz-raw://1da875a5283adee85ad2f9f277f5b03bb00cebf123e711123790e6dfa76b21c1",
+				"dweb:/ipfs/QmeQpWWjDrQuHBYvtLyJ5CuKcuar7zqPEKdhUwqu3y47wN"
 			]
 		}
 	},
