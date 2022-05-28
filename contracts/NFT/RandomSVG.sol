@@ -8,7 +8,7 @@ import "base64-sol/base64.sol";
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 
 contract RandomSVG is ERC721URIStorage, VRFConsumerBase {
-    bytes32 public keyHash;
+  bytes32 public keyHash;
   uint256 public fee;
   uint256 public tokenCounter;
 
@@ -27,8 +27,8 @@ contract RandomSVG is ERC721URIStorage, VRFConsumerBase {
   event CreatedUnfinishedRandomSVG(uint256 indexed tokenId, uint256 randomNumber);
   event CreatedRandomSVG(uint256 indexed tokenId, string tokenURI);
 
-  constructor(address _VRFCoordinator, address _LinkToken, bytes32 _keyHash, uint256 _fee) 
-  VRFConsumerBase(_VRFCoordinator, _LinkToken) 
+  constructor(address _VRFCoordinator, address _LinkToken, bytes32 _keyHash, uint256 _fee)
+  VRFConsumerBase(_VRFCoordinator, _LinkToken)
   ERC721("RandomSVG", "rsNFT") {
     keyHash = _keyHash;
     fee = _fee;
@@ -36,7 +36,7 @@ contract RandomSVG is ERC721URIStorage, VRFConsumerBase {
 
     maxNumberOfPaths = 10;
     maxNumberOfPathCommands = 5;
-    size = 500; 
+    size = 500;
     pathCommands = ["M", "L"];
     colors = ["red", "blue", "green", "yellow", "black", "white"];
   }
@@ -71,8 +71,8 @@ contract RandomSVG is ERC721URIStorage, VRFConsumerBase {
   }
 
   function generateSVG(uint256 _randomNumber) public view returns (string memory finalSvg) {
-    uint256 numberOfPaths = (_randomNumber % maxNumberOfPaths) + 1; 
-    finalSvg = string(abi.encodePacked("<svg xmlns='http://www.w3.org/2000/svg' height='", uint2str(size), "'width='", uint2str(size), "'>"));
+    uint256 numberOfPaths = (_randomNumber % maxNumberOfPaths) + 1;
+    finalSvg = string(abi.encodePacked("<svg xmlns='http://www.w3.org/2000/svg' height='", uint2str(size), "' width='", uint2str(size), "'>"));
     for (uint i = 0; i < numberOfPaths; i++) {
       uint256 newRNG = uint256(keccak256(abi.encode(_randomNumber, i)));
       string memory pathSvg = generatePath(newRNG);
@@ -90,7 +90,7 @@ contract RandomSVG is ERC721URIStorage, VRFConsumerBase {
         pathSvg = string(abi.encodePacked(pathSvg, pathCommand));
     }
     string memory color = colors[_randomNumber % colors.length];
-    pathSvg = string(abi.encodePacked(pathSvg, "' fill = 'transparent' stroke='", color, "'>"));
+    pathSvg = string(abi.encodePacked(pathSvg, "' fill = 'transparent' stroke='", color, "'/>"));
     }
 
     function generatePathCommand(uint256 _randomNumber) public view returns (string memory pathCommand) {
