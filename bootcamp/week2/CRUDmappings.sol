@@ -17,8 +17,14 @@ contract mappings {
     }
 
     function destroy(uint256 _val) external {
+        uint256 length = keys.length;
+        for (uint i = 0; i < length; i++) {
+            if (keys[i] == _val) {
+                keys[i] = keys[length - 1];
+                keys.pop();
+            }
+        }
         delete myMapping[_val];
-        keys[_val] = keys[keys.length - 1];
     }
 
     function readOne(uint256 _val) external view returns (string memory mappingValue) {

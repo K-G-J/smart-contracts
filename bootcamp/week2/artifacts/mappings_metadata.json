@@ -115,11 +115,11 @@
 	},
 	"sources": {
 		"bootcamp/week2/CRUDmappings.sol": {
-			"keccak256": "0x8c52672d45eabb1e21f98d7850c85cc9825287ea05f73fe91efc79597c71f115",
+			"keccak256": "0x39e3221c63ac1766ba4eeaf4ac322a4276634ad30a54323aa9a6fea0b639a178",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://be09cbe06ab144de3d69f95b3a3e6bd4a6a28798dcbf84ce8264e7b20f267102",
-				"dweb:/ipfs/QmZchPFMKiBTgZGL2vFpjxEXQGHrRo9GosZ1TnAeUU2Vzf"
+				"bzz-raw://9d5ca1970f5cc6ae0c812c80dab12a1355e35062440a56febc22aaf3d813975a",
+				"dweb:/ipfs/QmPDjCx5nQ5K1bgyrVtmF4atjs5kJqV681KMqHgEz8FAyL"
 			]
 		}
 	},
