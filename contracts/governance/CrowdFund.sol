@@ -91,7 +91,7 @@ contract CrowdFund {
     function refund(uint _id) external {
         Campaign storage campaign = campaigns[_id];
         require(block.timestamp > campaign.endAt, "not ended");
-        require(campaign.pledged >= campaign.goal, "pledged < goal");
+        require(campaign.pledged < campaign.goal, "pledged >= goal");
 
         uint bal = pledgedAmount[_id][msg.sender];
         pledgedAmount[_id][msg.sender] = 0;
