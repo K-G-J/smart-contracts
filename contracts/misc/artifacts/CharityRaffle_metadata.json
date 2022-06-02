@@ -33,6 +33,11 @@
 						"type": "uint256"
 					},
 					{
+						"internalType": "uint256",
+						"name": "duration",
+						"type": "uint256"
+					},
+					{
 						"internalType": "uint32",
 						"name": "callbackGasLimit",
 						"type": "uint32"
@@ -65,67 +70,56 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "have",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "want",
-						"type": "address"
-					}
-				],
-				"name": "OnlyCoordinatorCanFulfill",
-				"type": "error"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
 						"name": "charity",
 						"type": "address"
 					}
 				],
-				"name": "Raffle__CharityTransferFailed",
+				"name": "CharityRaffle__CharityTransferFailed",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "Raffle__DonationMatchFailed",
+				"name": "CharityRaffle__DonationMatchFailed",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "Raffle__FundingContractFailed",
+				"name": "CharityRaffle__FundingContractFailed",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "Raffle__FundingToMatchTransferFailed",
+				"name": "CharityRaffle__FundingToMatchTransferFailed",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "Raffle__JackpotTransferFailed",
+				"name": "CharityRaffle__JackpotTransferFailed",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "Raffle__MustBeFunder",
+				"name": "CharityRaffle__MustBeFunder",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "Raffle__RaffleNotClosed",
+				"name": "CharityRaffle__NotJackpotValue",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "Raffle__RaffleNotOpen",
+				"name": "CharityRaffle__RaffleNotClosed",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "Raffle__SendMoreToEnterRaffle",
+				"name": "CharityRaffle__RaffleNotOpen",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "CharityRaffle__SendMoreToEnterRaffle",
 				"type": "error"
 			},
 			{
@@ -146,7 +140,23 @@
 						"type": "uint256"
 					}
 				],
-				"name": "Raffle__UpkeepNotNeeded",
+				"name": "CharityRaffle__UpkeepNotNeeded",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "have",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "want",
+						"type": "address"
+					}
+				],
+				"name": "OnlyCoordinatorCanFulfill",
 				"type": "error"
 			},
 			{
@@ -249,7 +259,7 @@
 				"inputs": [],
 				"name": "fundDonationMatch",
 				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -286,6 +296,19 @@
 						"internalType": "address",
 						"name": "",
 						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getDuration",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -428,6 +451,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "getStartTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "bytes",
@@ -457,11 +493,20 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "startRaffle",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
+			"details": "This implements the Chainlink VRF Version 2",
 			"kind": "dev",
 			"methods": {},
+			"title": "A sample Charity Raffle Contract originally @author Patrick Collins",
 			"version": 1
 		},
 		"userdoc": {
@@ -471,6 +516,7 @@
 					"notice": "Getter Functions "
 				}
 			},
+			"notice": "This contract creates a lottery in which players enter by donating to 1 of 3 charities",
 			"version": 1
 		}
 	},
@@ -515,11 +561,11 @@
 			]
 		},
 		"contracts/misc/CharityRaffle.sol": {
-			"keccak256": "0x9d124a8ff2424f03b2d68c4189542ddcc1e5c4777828f610e33fbf2584c514ae",
+			"keccak256": "0x0b62132a7ebe9f6894f0d89c6eccd4b1e5255ac36886c9b0e3f01de42daaca52",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://198819d3845350d1cbbd564995518a7847ca5d8f30eaee01b87b9187bcd42283",
-				"dweb:/ipfs/QmXx2EoH9P8JXrWAhGRn3VrYUNiMEfx1LDYtLsLT3xmq32"
+				"bzz-raw://f7ff7beea1b7809a0eec4c31cf1d3484c89c0bfae186738aa2489195288bbaf5",
+				"dweb:/ipfs/QmSntMVzmRSsN2WYh6ifhRHSoVjJr31XeEMMchuMfv4JZk"
 			]
 		},
 		"hardhat/console.sol": {

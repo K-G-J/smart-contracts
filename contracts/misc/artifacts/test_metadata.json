@@ -1,0 +1,62 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "FundingContractFailed",
+				"type": "error"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/misc/test.sol": "test"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/misc/test.sol": {
+			"keccak256": "0xf45d6461ab40ac67eb34885def0c43284119524680c5eccb4c3f8bd92a521b75",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://01f98c637bd276ebbd297423b1d0035897f2c98d934680279d418f5c5989f2dd",
+				"dweb:/ipfs/Qmb2cKN3as6tdPL59aXRCh6VpUBb5YcHSJy3cNsdi5RsL7"
+			]
+		}
+	},
+	"version": 1
+}
