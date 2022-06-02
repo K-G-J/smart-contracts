@@ -63,7 +63,7 @@
 						"type": "address"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "constructor"
 			},
 			{
@@ -100,11 +100,6 @@
 			{
 				"inputs": [],
 				"name": "CharityRaffle__MustBeFunder",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "CharityRaffle__NotJackpotValue",
 				"type": "error"
 			},
 			{
@@ -493,13 +488,6 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "startRaffle",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -561,11 +549,11 @@
 			]
 		},
 		"contracts/misc/CharityRaffle.sol": {
-			"keccak256": "0x0b62132a7ebe9f6894f0d89c6eccd4b1e5255ac36886c9b0e3f01de42daaca52",
+			"keccak256": "0x5d337f5e75b78a504d395f9e4c56d29451a20f1a2c57bf7ef5a4b94e01a27b7f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f7ff7beea1b7809a0eec4c31cf1d3484c89c0bfae186738aa2489195288bbaf5",
-				"dweb:/ipfs/QmSntMVzmRSsN2WYh6ifhRHSoVjJr31XeEMMchuMfv4JZk"
+				"bzz-raw://02c8458536541c7de13c1ad5b4f01eb056ed6894e880b493947e1142c5a974fa",
+				"dweb:/ipfs/QmQQPh7fQiFzyWrsUm2KPd7XsN3zMbQjgH5q1REfyhLUBz"
 			]
 		},
 		"hardhat/console.sol": {
