@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.7+commit.e28d00a7"
+		"version": "0.8.14+commit.80d49f37"
 	},
 	"language": "Solidity",
 	"output": {
@@ -8,18 +8,26 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "_amount",
-						"type": "uint256"
+						"internalType": "string",
+						"name": "one",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "two",
+						"type": "string"
 					}
 				],
-				"stateMutability": "nonpayable",
-				"type": "constructor"
-			},
-			{
-				"inputs": [],
-				"name": "FundingContractFailed",
-				"type": "error"
+				"name": "concat",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "concatedString",
+						"type": "string"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -50,11 +58,11 @@
 	},
 	"sources": {
 		"contracts/misc/test.sol": {
-			"keccak256": "0xf45d6461ab40ac67eb34885def0c43284119524680c5eccb4c3f8bd92a521b75",
+			"keccak256": "0x9ce9a048579b781186a7e18d500520fe6e83e95ed890c98a75d693af4504bb57",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://01f98c637bd276ebbd297423b1d0035897f2c98d934680279d418f5c5989f2dd",
-				"dweb:/ipfs/Qmb2cKN3as6tdPL59aXRCh6VpUBb5YcHSJy3cNsdi5RsL7"
+				"bzz-raw://2ab1bf2370b33482f7be3ed5cbf5f269476e204dfbc371e1a8c69d1fb2ed50cc",
+				"dweb:/ipfs/QmckG28W3BhNPf7TRRJxkhro5ZHeq7GkC8pRkFUoUUpnix"
 			]
 		}
 	},

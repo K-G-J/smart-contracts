@@ -276,7 +276,7 @@
 				"outputs": [
 					{
 						"internalType": "address[]",
-						"name": "charities",
+						"name": "",
 						"type": "address[]"
 					}
 				],
@@ -549,11 +549,11 @@
 			]
 		},
 		"contracts/misc/CharityRaffle.sol": {
-			"keccak256": "0x5d337f5e75b78a504d395f9e4c56d29451a20f1a2c57bf7ef5a4b94e01a27b7f",
+			"keccak256": "0x06c369f703c995ddfca2e4374d2e26e6952112272f6c5863e15931aeb8b6884d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://02c8458536541c7de13c1ad5b4f01eb056ed6894e880b493947e1142c5a974fa",
-				"dweb:/ipfs/QmQQPh7fQiFzyWrsUm2KPd7XsN3zMbQjgH5q1REfyhLUBz"
+				"bzz-raw://f09e7a44ae7508c9323a631decf5e0f85f62b2bec21390078e71e0af02e2aba5",
+				"dweb:/ipfs/QmdnuQJoLci8KWA6NaGMkbFmd2nAaisLYddJSRLwXWHmgC"
 			]
 		},
 		"hardhat/console.sol": {
