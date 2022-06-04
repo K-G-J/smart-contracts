@@ -297,6 +297,25 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "charity",
+						"type": "address"
+					}
+				],
+				"name": "getDonations",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "getDuration",
 				"outputs": [
@@ -549,11 +568,11 @@
 			]
 		},
 		"contracts/misc/CharityRaffle.sol": {
-			"keccak256": "0x06c369f703c995ddfca2e4374d2e26e6952112272f6c5863e15931aeb8b6884d",
+			"keccak256": "0xed51518d171a0de90f2ce1a9cd1d96cb42df327e5dd247482fccc4d474ba0e99",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f09e7a44ae7508c9323a631decf5e0f85f62b2bec21390078e71e0af02e2aba5",
-				"dweb:/ipfs/QmdnuQJoLci8KWA6NaGMkbFmd2nAaisLYddJSRLwXWHmgC"
+				"bzz-raw://092aa91d3ba9576bae36335faa61e1ca0f00558a2777e52b8626b43cfe1e787f",
+				"dweb:/ipfs/QmTpXGA32TRrsWL1wwy6NZCKzjphFJTS94hioi33TaXeez"
 			]
 		},
 		"hardhat/console.sol": {
