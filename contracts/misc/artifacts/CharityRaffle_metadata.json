@@ -79,6 +79,11 @@
 			},
 			{
 				"inputs": [],
+				"name": "CharityRaffle__ContractNotFunded",
+				"type": "error"
+			},
+			{
+				"inputs": [],
 				"name": "CharityRaffle__DonationMatchFailed",
 				"type": "error"
 			},
@@ -94,12 +99,32 @@
 			},
 			{
 				"inputs": [],
+				"name": "CharityRaffle__IncorrectMatchValue",
+				"type": "error"
+			},
+			{
+				"inputs": [],
 				"name": "CharityRaffle__JackpotTransferFailed",
 				"type": "error"
 			},
 			{
 				"inputs": [],
+				"name": "CharityRaffle__MatchAlreadyFunded",
+				"type": "error"
+			},
+			{
+				"inputs": [],
 				"name": "CharityRaffle__MustBeFunder",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "CharityRaffle__NoCharityWinner",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "CharityRaffle__NotValidCharityChoice",
 				"type": "error"
 			},
 			{
@@ -207,13 +232,6 @@
 				"type": "event"
 			},
 			{
-				"inputs": [],
-				"name": "DonationMatch",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "bytes",
@@ -235,6 +253,13 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "donationMatch",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -507,6 +532,10 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -568,11 +597,11 @@
 			]
 		},
 		"contracts/misc/CharityRaffle.sol": {
-			"keccak256": "0xed51518d171a0de90f2ce1a9cd1d96cb42df327e5dd247482fccc4d474ba0e99",
+			"keccak256": "0x14e49cd1b44938557fb56d72126537e0f081b01b3b3538ee146639b833777fbf",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://092aa91d3ba9576bae36335faa61e1ca0f00558a2777e52b8626b43cfe1e787f",
-				"dweb:/ipfs/QmTpXGA32TRrsWL1wwy6NZCKzjphFJTS94hioi33TaXeez"
+				"bzz-raw://7915e7eadc3adee74b2da23bb3643267602b3b706c7762d60468b01f222c952e",
+				"dweb:/ipfs/QmSCDKtoZionbKaNTNCcG4pxi4iCWtdUdKfSMUrC7NGnVE"
 			]
 		},
 		"hardhat/console.sol": {
