@@ -532,10 +532,6 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
-			},
-			{
-				"stateMutability": "payable",
-				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -597,11 +593,11 @@
 			]
 		},
 		"contracts/misc/CharityRaffle.sol": {
-			"keccak256": "0x60d12a1fa14721ed65f037072e60bde1333644ee943308007320e8d857cba39f",
+			"keccak256": "0xf805db9738bf7e371ba329e656b9f562785c8a70bb55860a60c44f4af26b43ca",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ab42415e28a53d6997a2026a5b787471986fd54d76176df9eebb4ba93ab008e1",
-				"dweb:/ipfs/Qmbr91N27FRnP4BmZEuRhCpMKUfyPHQg9u1FX6mRPoPPBv"
+				"bzz-raw://fc76016ed480e7ba862b64823edbc402eb72204f6961815041bcff8228485f3b",
+				"dweb:/ipfs/QmRLk5wsnatCyVF3gqToy8cuBkHYx2DUxCDpCmSkTdoSPD"
 			]
 		},
 		"hardhat/console.sol": {
