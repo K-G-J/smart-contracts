@@ -593,11 +593,11 @@
 			]
 		},
 		"contracts/misc/CharityRaffle.sol": {
-			"keccak256": "0xf805db9738bf7e371ba329e656b9f562785c8a70bb55860a60c44f4af26b43ca",
+			"keccak256": "0x8d6bd4854ae4af8ab9b7bad918650dc7043f1d4d669923cc0114301abbea7746",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fc76016ed480e7ba862b64823edbc402eb72204f6961815041bcff8228485f3b",
-				"dweb:/ipfs/QmRLk5wsnatCyVF3gqToy8cuBkHYx2DUxCDpCmSkTdoSPD"
+				"bzz-raw://fc966affb22af71c63671d061cf5122df88cf18a3c10d253ab52758390a106dc",
+				"dweb:/ipfs/QmPvnGB9x6YGvTbjyjdqiUqdfkhGxg6JC6eeCs7bL1DGSb"
 			]
 		},
 		"hardhat/console.sol": {
