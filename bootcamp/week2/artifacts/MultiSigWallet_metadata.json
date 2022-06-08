@@ -116,6 +116,37 @@
 					{
 						"indexed": false,
 						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "txId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "executor",
+						"type": "address"
+					}
+				],
+				"name": "ExecuteTx",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
 						"name": "revoker",
 						"type": "address"
 					},
@@ -362,11 +393,11 @@
 	},
 	"sources": {
 		"bootcamp/week2/MultiSigWallet.sol": {
-			"keccak256": "0x85ab505728967f5c9aa513a69708d619b3b4cfcebcbe0a169feed99add6c1051",
+			"keccak256": "0xc02f7487b7041bedd6294fc3074394c73fd6635519c4b0c695bb8da22f1ea912",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://18ee2adb22616c24d6a389604ff56a18788d5a16ea8914b0c34da832df382985",
-				"dweb:/ipfs/QmcV2iHABcUTbZaDwXpDtUvhxuaejsYE2TN92BmFNc5cZ7"
+				"bzz-raw://82a35df347dab8f3e914e1374dec732a3fb0609c079e3fdc2c118f2109f15a4a",
+				"dweb:/ipfs/QmUkRvkSiNkyZc3dqtGtoQS6e4vmo3skKRz9HtjKvh1Cbd"
 			]
 		}
 	},
