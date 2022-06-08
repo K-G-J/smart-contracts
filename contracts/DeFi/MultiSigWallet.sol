@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.8.10;
+pragma solidity ^0.8.7;
 
 contract MultiSigWallet {
     event Deposit(address indexed sender, uint amount);
@@ -10,7 +10,7 @@ contract MultiSigWallet {
 
     struct Transaction {
         address to;
-        uint value;
+        uint256 value;
         bytes data;
         bool executed;
     }

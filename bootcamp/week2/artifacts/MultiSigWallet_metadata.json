@@ -1,0 +1,374 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_required",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address[]",
+						"name": "_owners",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "AlreadyOwner",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "NotOwner",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "OwnerNotAlreadyApproved",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "invalidRequired",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "lessThanRequiredConfirmations",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "txAlreadyApproved",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "txAlreadyExecuted",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "txDoesNotExist",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "txFailed",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "approver",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "txId",
+						"type": "uint256"
+					}
+				],
+				"name": "ApprovedTx",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					}
+				],
+				"name": "Deposit",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "revoker",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "txId",
+						"type": "uint256"
+					}
+				],
+				"name": "RevokedApproval",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "SubmittedTx",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_txId",
+						"type": "uint256"
+					}
+				],
+				"name": "approveTx",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "approved",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_txId",
+						"type": "uint256"
+					}
+				],
+				"name": "executeTx",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "isOwner",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "required",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_txId",
+						"type": "uint256"
+					}
+				],
+				"name": "revokeTx",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_value",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "_data",
+						"type": "bytes"
+					}
+				],
+				"name": "submitTx",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "transactions",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					},
+					{
+						"internalType": "uint256",
+						"name": "confirmations",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "executed",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "txId",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"bootcamp/week2/MultiSigWallet.sol": "MultiSigWallet"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"bootcamp/week2/MultiSigWallet.sol": {
+			"keccak256": "0x85ab505728967f5c9aa513a69708d619b3b4cfcebcbe0a169feed99add6c1051",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://18ee2adb22616c24d6a389604ff56a18788d5a16ea8914b0c34da832df382985",
+				"dweb:/ipfs/QmcV2iHABcUTbZaDwXpDtUvhxuaejsYE2TN92BmFNc5cZ7"
+			]
+		}
+	},
+	"version": 1
+}
