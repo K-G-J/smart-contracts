@@ -44,7 +44,7 @@ contract MultiSigWallet {
     }
 
     modifier txExists(uint256 _txId) {
-        if (transactions[txId].id > txId) {
+        if (_txId > txId) {
             revert txDoesNotExist();
         }
         _;
