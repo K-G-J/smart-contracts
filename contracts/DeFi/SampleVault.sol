@@ -117,7 +117,7 @@ contract SampleVault {
     uint256 amountOut = amountUSD; // includes 18 decimals
     uint256 amountInMaximum = 10 ** 28 ;
     uint160 sqrtPriceLimitX96 = 0;
-    require(wethToken.approve(address(uinswapV3RouterAddress), amountOut), 'WETH approve failed');
+    require(wethToken.approve(address(uinswapV3RouterAddress), amountOut), "WETH approve failed");
     ISwapRouter.ExactOutputSingleParams memory params = ISwapRouter.ExactOutputSingleParams(
       wethAddress,
       daiAddress,

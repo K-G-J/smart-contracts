@@ -74,7 +74,7 @@ contract MultiSigWallet {
             if(isOwner[owner]) {
                 revert AlreadyOwner();
             }
-            isOwner[owner];
+            isOwner[owner] = true;
         }
     }
 
