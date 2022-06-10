@@ -8,14 +8,14 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "_required",
-						"type": "uint256"
-					},
-					{
 						"internalType": "address[]",
 						"name": "_owners",
 						"type": "address[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_required",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -28,42 +28,47 @@
 			},
 			{
 				"inputs": [],
+				"name": "InvalidNumRequired",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "InvalidOwnerAddress",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "LessConfirmationsThanRequired",
+				"type": "error"
+			},
+			{
+				"inputs": [],
 				"name": "NotOwner",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "OwnerNotAlreadyApproved",
+				"name": "TxAlreadyApproved",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "invalidRequired",
+				"name": "TxAlreadyExecuted",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "lessThanRequiredConfirmations",
+				"name": "TxDoesNotExists",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "txAlreadyApproved",
+				"name": "TxExecutionFailed",
 				"type": "error"
 			},
 			{
 				"inputs": [],
-				"name": "txAlreadyExecuted",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "txDoesNotExist",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "txFailed",
+				"name": "TxNotApproved",
 				"type": "error"
 			},
 			{
@@ -71,15 +76,15 @@
 				"inputs": [
 					{
 						"indexed": false,
-						"internalType": "address",
-						"name": "approver",
-						"type": "address"
-					},
-					{
-						"indexed": false,
 						"internalType": "uint256",
 						"name": "txId",
 						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "approver",
+						"type": "address"
 					}
 				],
 				"name": "ApprovedTx",
@@ -108,56 +113,6 @@
 					}
 				],
 				"name": "Deposit",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "value",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "txId",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "executor",
-						"type": "address"
-					}
-				],
-				"name": "ExecuteTx",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "revoker",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "txId",
-						"type": "uint256"
-					}
-				],
-				"name": "RevokedApproval",
 				"type": "event"
 			},
 			{
@@ -255,19 +210,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "required",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -348,19 +290,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "txId",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"stateMutability": "payable",
 				"type": "receive"
 			}
@@ -393,11 +322,11 @@
 	},
 	"sources": {
 		"bootcamp/week2/MultiSigWallet.sol": {
-			"keccak256": "0xc02f7487b7041bedd6294fc3074394c73fd6635519c4b0c695bb8da22f1ea912",
+			"keccak256": "0x8af6316e9a1155207e661a4789bf62cf3cdcf571a0a7a0deb6d00c00ea6bc863",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://82a35df347dab8f3e914e1374dec732a3fb0609c079e3fdc2c118f2109f15a4a",
-				"dweb:/ipfs/QmUkRvkSiNkyZc3dqtGtoQS6e4vmo3skKRz9HtjKvh1Cbd"
+				"bzz-raw://aa85d361ea0dcdc40aee3c4ea738fdb4a47a57b5e8f58d686de5db1f7495e316",
+				"dweb:/ipfs/QmfTNjCPJUfW4fHbmuKf64KqzCSUFEiprg3zBczrAx6N2d"
 			]
 		}
 	},
