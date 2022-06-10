@@ -17,6 +17,7 @@ contract MultiSigWallet {
     event Deposit(address sender, uint256 value, uint256 balance);
     event SubmittedTx(address to, uint256 value, bytes data);
     event ApprovedTx(uint256 txId, address approver);
+    event TxExecuted(address to, uint256 value, bytes data, address executor);
 
     mapping(address => bool) public isOwner;
 
@@ -110,6 +111,7 @@ contract MultiSigWallet {
         if (!success) {
             revert TxExecutionFailed();
         }
+        emit TxExecuted(transaction.to, transaction.value, transaction.data, msg.sender);
     }
 
     function revokeTx(uint256 _txId) external onlyOwner txExists(_txId) notExecuted(_txId) {
