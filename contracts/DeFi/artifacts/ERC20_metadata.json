@@ -59,12 +59,12 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "owner",
+						"name": "",
 						"type": "address"
 					},
 					{
 						"internalType": "address",
-						"name": "spender",
+						"name": "",
 						"type": "address"
 					}
 				],
@@ -107,7 +107,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "account",
+						"name": "",
 						"type": "address"
 					}
 				],
@@ -117,6 +117,71 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "burn",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "decimals",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "mint",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "name",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "symbol",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -202,7 +267,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DeFi/IERC20.sol": "IERC20"
+			"contracts/DeFi/ERC20.sol": "ERC20"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -216,6 +281,14 @@
 		"remappings": []
 	},
 	"sources": {
+		"contracts/DeFi/ERC20.sol": {
+			"keccak256": "0xcf0489ded2a1c9e375b0b2f27ca933bcdedcdaccb57b9cbc9d202ff74ce2b941",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fc2c57e9df845fa67f4c96d26338604312b8955cdeb6d0f5d65a45945279b2a6",
+				"dweb:/ipfs/QmdiudiqHxo7sFr554aHeAHA3Yk6vaqxptesYHz7fF8snt"
+			]
+		},
 		"contracts/DeFi/IERC20.sol": {
 			"keccak256": "0xb27b21c464cb6cc1efdb3fca56b2184717f9fd09bf45b52abb7abf4376eb3a20",
 			"license": "MIT",

@@ -8,12 +8,12 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
+						"internalType": "contract IERC20",
 						"name": "_token0",
 						"type": "address"
 					},
 					{
-						"internalType": "address",
+						"internalType": "contract IERC20",
 						"name": "_token1",
 						"type": "address"
 					}
@@ -191,7 +191,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DeFi/CSAMM.sol": "CSAMM"
+			"contracts/DeFi/CSAMM2.sol": "CSAMM"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -205,12 +205,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/DeFi/CSAMM.sol": {
-			"keccak256": "0x8e1d5a37c0b2965f547644d235107397a14a0429bf7559712f09047db0ec0b27",
+		"contracts/DeFi/CSAMM2.sol": {
+			"keccak256": "0x768a22dba55e2bf9ae1c3c347c4a1f106562e6b04f38c5add3e496f93c61f9cf",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a8dd9631bd917f1592f85a72e203070c931ffa192fe0356015035b607710784a",
-				"dweb:/ipfs/QmNbY8Qzc4Jk57Kk2uGumUfLVQg1xzbmH9smdpbKAifPcF"
+				"bzz-raw://d32ca453ee25ed04a2e389cead653551d6b81dbb1e213e03bd51181a1b5a5f98",
+				"dweb:/ipfs/QmVLyxPJ2QuQ7EdrzSqsrfE4nHBm16edi4Cgp8rCjup6Zv"
+			]
+		},
+		"contracts/DeFi/IERC20.sol": {
+			"keccak256": "0xb27b21c464cb6cc1efdb3fca56b2184717f9fd09bf45b52abb7abf4376eb3a20",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://58ae74b7afe25dafe959b0d1c0e8a8af956e4f8fce509508e546a7d37ec79ec8",
+				"dweb:/ipfs/QmbsXzvFi1Bw7Q97YdXGvDuypnS8roePPyHp23VVrhU4gX"
 			]
 		}
 	},
