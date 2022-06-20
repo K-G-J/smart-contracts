@@ -58,7 +58,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "TxDoesNotExists",
+				"name": "TxDoesNotExist",
 				"type": "error"
 			},
 			{
@@ -188,16 +188,35 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "_txId",
 						"type": "uint256"
 					},
 					{
 						"internalType": "address",
-						"name": "",
+						"name": "_approver",
 						"type": "address"
 					}
 				],
-				"name": "approved",
+				"name": "checkApproved",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_owner",
+						"type": "address"
+					}
+				],
+				"name": "checkOwner",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -224,17 +243,62 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
+						"internalType": "uint256",
+						"name": "_txId",
+						"type": "uint256"
 					}
 				],
-				"name": "isOwner",
+				"name": "getTransaction",
 				"outputs": [
 					{
-						"internalType": "bool",
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "to",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "value",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bytes",
+								"name": "data",
+								"type": "bytes"
+							},
+							{
+								"internalType": "uint256",
+								"name": "confirmations",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "executed",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct MultiSigWallet.Transaction",
 						"name": "",
-						"type": "bool"
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "required",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -277,44 +341,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
+				"inputs": [],
+				"name": "txId",
+				"outputs": [
 					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
-					}
-				],
-				"name": "transactions",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "value",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bytes",
-						"name": "data",
-						"type": "bytes"
-					},
-					{
-						"internalType": "uint256",
-						"name": "confirmations",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "executed",
-						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -353,11 +386,11 @@
 	},
 	"sources": {
 		"bootcamp/week2/MultiSigWallet.sol": {
-			"keccak256": "0x50fcd16999775314cec5cea4062ca97b56a4426d82e0a2632f5ab83578e899fd",
+			"keccak256": "0xd241d471881947b50113d13b13453769def9fef6e8c3f2ceceb72913e141ae4c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://bac15a023161d92fb597e5a8e038199559c97b9f9e2c636a6abd7156f93276a2",
-				"dweb:/ipfs/QmP7ePsQXQqjbYrjcCe3svpmBf9YZmsKxEC4EsHrFtSnt1"
+				"bzz-raw://59124e8b167680b10c374f981c29a9d3e0978475218d2da6cf7f86394fb9febc",
+				"dweb:/ipfs/Qmb9KZDpCSS8JS8ndCCWroCuCg2JfUrcfUkLPWj4Vuny3L"
 			]
 		}
 	},

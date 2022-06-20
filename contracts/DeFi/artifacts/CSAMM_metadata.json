@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.13+commit.abaa5c0e"
+		"version": "0.8.15+commit.e14f2714"
 	},
 	"language": "Solidity",
 	"output": {
@@ -8,12 +8,12 @@
 			{
 				"inputs": [
 					{
-						"internalType": "contract IERC20",
+						"internalType": "address",
 						"name": "_token0",
 						"type": "address"
 					},
 					{
-						"internalType": "contract IERC20",
+						"internalType": "address",
 						"name": "_token1",
 						"type": "address"
 					}
@@ -206,11 +206,11 @@
 	},
 	"sources": {
 		"contracts/DeFi/CSAMM2.sol": {
-			"keccak256": "0x768a22dba55e2bf9ae1c3c347c4a1f106562e6b04f38c5add3e496f93c61f9cf",
+			"keccak256": "0x66d9ab1d7accf071c29422cfff2e3fcfcd5968d91354d9a3542b4f7d78443a52",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d32ca453ee25ed04a2e389cead653551d6b81dbb1e213e03bd51181a1b5a5f98",
-				"dweb:/ipfs/QmVLyxPJ2QuQ7EdrzSqsrfE4nHBm16edi4Cgp8rCjup6Zv"
+				"bzz-raw://b823e07653167829ea21d76f017aa1a36b341fadc6b56e15c76aeb77eab23330",
+				"dweb:/ipfs/QmdYn21VP2PUT11vNpZ55zVipzLoU9U84LUpJ1pTyeo9rb"
 			]
 		},
 		"contracts/DeFi/IERC20.sol": {

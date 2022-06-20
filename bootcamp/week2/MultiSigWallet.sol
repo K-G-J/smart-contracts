@@ -2,24 +2,13 @@
 
 pragma solidity ^0.8.7;
 
-error InvalidNumRequired();
-error InvalidOwnerAddress();
-error AlreadyOwner();
-error NotOwner();
-error TxDoesNotExists();
-error TxAlreadyExecuted();
-error TxAlreadyApproved();
-error TxNotApproved();
-error LessConfirmationsThanRequired();
-error TxExecutionFailed();
-
 contract MultiSigWallet {
     event Deposit(address sender, uint256 value, uint256 balance);
     event SubmittedTx(address to, uint256 value, bytes data);
     event ApprovedTx(uint256 txId, address approver);
     event TxExecuted(address to, uint256 value, bytes data, address executor);
 
-    mapping(address => bool) public isOwner;
+    mapping(address => bool) private isOwner;
 
     struct Transaction {
         uint256 id;
@@ -30,11 +19,11 @@ contract MultiSigWallet {
         bool executed;
     }
 
-    mapping(uint256 => Transaction) public transactions;
-    mapping(uint256 => mapping(address => bool)) public approved;
+    mapping(uint256 => Transaction) private transactions;
+    mapping(uint256 => mapping(address => bool)) private approved;
 
-    uint256 required;
-    uint256 txId;
+    uint256 public required;
+    uint256 public txId;
 
     modifier onlyOwner() {
         if (!isOwner[msg.sender]) {
@@ -44,8 +33,8 @@ contract MultiSigWallet {
     }
 
     modifier txExists(uint256 _txId) {
-        if (_txId > txId) {
-            revert TxDoesNotExists();
+        if (_txId > txId - 1) {
+            revert TxDoesNotExist();
         }
         _;
     }
@@ -64,11 +53,22 @@ contract MultiSigWallet {
         _;
     }
 
+    error InvalidNumRequired();
+    error InvalidOwnerAddress();
+    error AlreadyOwner();
+    error NotOwner();
+    error TxDoesNotExist();
+    error TxAlreadyExecuted();
+    error TxAlreadyApproved();
+    error TxNotApproved();
+    error LessConfirmationsThanRequired();
+    error TxExecutionFailed();
+
     constructor(address[] memory _owners, uint256 _required) {
         if (_required > _owners.length) {
             revert InvalidNumRequired();
         }
-        for(uint256 i = 0; i < _owners.length; i++) {
+        for (uint256 i = 0; i < _owners.length; i++) {
             address owner = _owners[i];
 
             if (owner == address(0)) {
@@ -79,13 +79,18 @@ contract MultiSigWallet {
             }
             isOwner[owner] = true;
         }
+        required = _required;
     }
 
     receive() external payable {
         emit Deposit(msg.sender, msg.value, address(this).balance);
     }
 
-    function submitTx(address _to, uint256 _value, bytes memory _data) external onlyOwner {
+    function submitTx(
+        address _to,
+        uint256 _value,
+        bytes memory _data
+    ) external onlyOwner {
         Transaction storage transaction = transactions[txId];
         transaction.id = txId;
         transaction.to = _to;
@@ -95,31 +100,66 @@ contract MultiSigWallet {
         emit SubmittedTx(_to, _value, _data);
     }
 
-    function approveTx(uint256 _txId) external onlyOwner txExists(_txId) notApproved(_txId) notExecuted(_txId) {
+    function approveTx(uint256 _txId)
+        external
+        onlyOwner
+        txExists(_txId)
+        notApproved(_txId)
+        notExecuted(_txId)
+    {
         transactions[_txId].confirmations++;
         approved[_txId][msg.sender] = true;
         emit ApprovedTx(_txId, msg.sender);
     }
 
-    function executeTx(uint256 _txId) external onlyOwner txExists(_txId) notExecuted(_txId) {
+    function executeTx(uint256 _txId)
+        external
+        onlyOwner
+        txExists(_txId)
+        notExecuted(_txId)
+    {
         Transaction storage transaction = transactions[_txId];
         if (transaction.confirmations < required) {
             revert LessConfirmationsThanRequired();
         }
         transaction.executed = true;
-        (bool success, ) = payable(transaction.to).call{value: transaction.value}(transaction.data);
+        (bool success, ) = payable(transaction.to).call{
+            value: transaction.value
+        }(transaction.data);
         if (!success) {
             revert TxExecutionFailed();
         }
-        emit TxExecuted(transaction.to, transaction.value, transaction.data, msg.sender);
+        emit TxExecuted(
+            transaction.to,
+            transaction.value,
+            transaction.data,
+            msg.sender
+        );
     }
 
-    function revokeTx(uint256 _txId) external onlyOwner txExists(_txId) notExecuted(_txId) {
+    function revokeTx(uint256 _txId)
+        external
+        onlyOwner
+        txExists(_txId)
+        notExecuted(_txId)
+    {
         if (approved[_txId][msg.sender]) {
             transactions[_txId].confirmations--;
             approved[_txId][msg.sender] = false;
         } else {
             revert TxNotApproved();
         }
+    }
+
+    function getTransaction(uint256 _txId) external view txExists(_txId) returns (Transaction memory) {
+        return transactions[_txId];
+    }
+
+    function checkOwner(address _owner) external view returns (bool) {
+        return isOwner[_owner];
+    }
+
+    function checkApproved(uint256 _txId, address _approver) external view returns (bool) {
+        return approved[_txId][_approver];
     }
 }
