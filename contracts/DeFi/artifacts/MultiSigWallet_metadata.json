@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.7+commit.e28d00a7"
+		"version": "0.8.15+commit.e14f2714"
 	},
 	"language": "Solidity",
 	"output": {
@@ -8,129 +8,30 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address[]",
+						"internalType": "address[2]",
 						"name": "_owners",
-						"type": "address[]"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_required",
-						"type": "uint256"
+						"type": "address[2]"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "constructor"
 			},
 			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "uint256",
-						"name": "txId",
-						"type": "uint256"
-					}
-				],
-				"name": "Approve",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "sender",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "Deposit",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "uint256",
-						"name": "txId",
-						"type": "uint256"
-					}
-				],
-				"name": "Execute",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "uint256",
-						"name": "txId",
-						"type": "uint256"
-					}
-				],
-				"name": "Revoke",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "uint256",
-						"name": "txId",
-						"type": "uint256"
-					}
-				],
-				"name": "Submit",
-				"type": "event"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_txId",
-						"type": "uint256"
-					}
-				],
-				"name": "approve",
+				"inputs": [],
+				"name": "deposit",
 				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "bytes32",
 						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
+						"type": "bytes32"
 					}
 				],
-				"name": "approved",
+				"name": "executed",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -144,30 +45,27 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256",
-						"name": "_txId",
+						"name": "_amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_nonce",
 						"type": "uint256"
 					}
 				],
-				"name": "execute",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "isOwner",
+				"name": "getTxHash",
 				"outputs": [
 					{
-						"internalType": "bool",
+						"internalType": "bytes32",
 						"name": "",
-						"type": "bool"
+						"type": "bytes32"
 					}
 				],
 				"stateMutability": "view",
@@ -193,32 +91,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "required",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_txId",
-						"type": "uint256"
-					}
-				],
-				"name": "revoke",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -227,52 +99,23 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_value",
+						"name": "_amount",
 						"type": "uint256"
 					},
 					{
-						"internalType": "bytes",
-						"name": "_data",
-						"type": "bytes"
+						"internalType": "uint256",
+						"name": "_nonce",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes[2]",
+						"name": "_sigs",
+						"type": "bytes[2]"
 					}
 				],
-				"name": "submit",
+				"name": "transfer",
 				"outputs": [],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "transactions",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "value",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bytes",
-						"name": "data",
-						"type": "bytes"
-					},
-					{
-						"internalType": "bool",
-						"name": "executed",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -293,7 +136,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DeFi/MultiSigWallet.sol": "MultiSigWallet"
+			"contracts/DeFi/MultiSigV3.sol": "MultiSigWallet"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -307,12 +150,28 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/DeFi/MultiSigWallet.sol": {
-			"keccak256": "0xa2704e5e1f504c9d1c92db1ddfd0f35f09e616dee986555fe3b9ceae938beb2f",
+		"contracts/DeFi/MultiSigV3.sol": {
+			"keccak256": "0x0e00d9e4c7b48f364ea17c00a81fe82fcf4502bee107cbcba88db8bbc2af2ea6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://12e4f278bf65a73f2f36c79c92aa6d0311073f871cf2b088866ebb696b42cb07",
-				"dweb:/ipfs/QmRGkxVE1mLtrjdviabfjgFhGueyhegYrmiuKWV26gGzoj"
+				"bzz-raw://4b27c1b46f2b019e2d84ebbbfdc9a933035e800465089cbb94a37ab3bc30d7ca",
+				"dweb:/ipfs/QmVSPZVjwwEpd81y4giUg6zpqeX97gxFBZnWwTC2hmGg3t"
+			]
+		},
+		"github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.5/contracts/utils/Strings.sol": {
+			"keccak256": "0x32c202bd28995dd20c4347b7c6467a6d3241c74c8ad3edcbb610cd9205916c45",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8179c356adb19e70d6b31a1eedc8c5c7f0c00e669e2540f4099e3844c6074d30",
+				"dweb:/ipfs/QmWFbivarEobbqhS1go64ootVuHfVohBseerYy9FTEd1W2"
+			]
+		},
+		"github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.5/contracts/utils/cryptography/ECDSA.sol": {
+			"keccak256": "0x3c07f43e60e099b3b157243b3152722e73b80eeb7985c2cd73712828d7f7da29",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://466ffb5a6e3bd65fffd996f9287ffd240ea21588a338c6efe143d94eaed014a7",
+				"dweb:/ipfs/Qmans3vvPJZcvxe9KLAPc9Xwe4TFVTJdzaQGpi62Vrhoe2"
 			]
 		}
 	},
