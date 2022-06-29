@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.15+commit.e14f2714"
+		"version": "0.8.7+commit.e28d00a7"
 	},
 	"language": "Solidity",
 	"output": {
@@ -9,12 +9,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_token0",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "_token1",
+						"name": "token_addr",
 						"type": "address"
 					}
 				],
@@ -22,27 +17,179 @@
 				"type": "constructor"
 			},
 			{
+				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "swapper",
+						"type": "address"
+					},
+					{
+						"indexed": true,
 						"internalType": "uint256",
-						"name": "_amount0",
+						"name": "ethInput",
 						"type": "uint256"
 					},
 					{
+						"indexed": true,
 						"internalType": "uint256",
-						"name": "_amount1",
+						"name": "tokenOutput",
 						"type": "uint256"
 					}
 				],
-				"name": "addLiquidity",
+				"name": "EthToTokenSwap",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "liquidityProvider",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "tokensInput",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "ethInput",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "liquidityMinted",
+						"type": "uint256"
+					}
+				],
+				"name": "LiquidityProvided",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "liquidityRemover",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "tokensOutput",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "ethOutput",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "liquidityWithdrawn",
+						"type": "uint256"
+					}
+				],
+				"name": "LiquidityRemoved",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "swapper",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "tokensInput",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "ethOutput",
+						"type": "uint256"
+					}
+				],
+				"name": "TokenToEthSwap",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "deposit",
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "shares",
+						"name": "tokensDeposited",
 						"type": "uint256"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "ethToToken",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "tokenOutput",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "lp",
+						"type": "address"
+					}
+				],
+				"name": "getLiquidity",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tokens",
+						"type": "uint256"
+					}
+				],
+				"name": "init",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -53,7 +200,7 @@
 						"type": "address"
 					}
 				],
-				"name": "balanceOf",
+				"name": "liquidity",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -68,20 +215,44 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_shares",
-						"type": "uint256"
-					}
-				],
-				"name": "removeLiquidity",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "amount0",
+						"name": "xInput",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "amount1",
+						"name": "xReserves",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "yReserves",
+						"type": "uint256"
+					}
+				],
+				"name": "price",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "yOutput",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tokenInput",
+						"type": "uint256"
+					}
+				],
+				"name": "tokenToEth",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "ethOutput",
 						"type": "uint256"
 					}
 				],
@@ -90,20 +261,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "reserve0",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "reserve1",
+				"name": "totalLiquidity",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -117,64 +275,25 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "_tokenIn",
-						"type": "address"
-					},
-					{
 						"internalType": "uint256",
-						"name": "_amountIn",
+						"name": "amount",
 						"type": "uint256"
 					}
 				],
-				"name": "swap",
+				"name": "withdraw",
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "amountOut",
+						"name": "eth_amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "token_amount",
 						"type": "uint256"
 					}
 				],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "token0",
-				"outputs": [
-					{
-						"internalType": "contract IERC20",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "token1",
-				"outputs": [
-					{
-						"internalType": "contract IERC20",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "totalSupply",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -184,14 +303,47 @@
 			"version": 1
 		},
 		"userdoc": {
+			"events": {
+				"EthToTokenSwap(address,uint256,uint256)": {
+					"notice": "Emitted when ethToToken() swap transacted"
+				},
+				"LiquidityProvided(address,uint256,uint256,uint256)": {
+					"notice": "Emitted when liquidity provided to DEX and mints LPTs."
+				},
+				"LiquidityRemoved(address,uint256,uint256,uint256)": {
+					"notice": "Emitted when liquidity removed from DEX and decreases LPT count within DEX."
+				},
+				"TokenToEthSwap(address,uint256,uint256)": {
+					"notice": "Emitted when tokenToEth() swap transacted"
+				}
+			},
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"deposit()": {
+					"notice": "allows deposits of token and ETH to liquidity pool"
+				},
+				"ethToToken()": {
+					"notice": "sends Ether to DEX in exchange for token"
+				},
+				"getLiquidity(address)": {
+					"notice": "returns liquidity for a user."
+				},
+				"price(uint256,uint256,uint256)": {
+					"notice": "returns yOutput, or yDelta for xInput (or xDelta)"
+				},
+				"tokenToEth(uint256)": {
+					"notice": "sends token to DEX in exchange for Ether"
+				},
+				"withdraw(uint256)": {
+					"notice": "allows withdrawal of tokens and ETH from liquidity pool"
+				}
+			},
 			"version": 1
 		}
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DeFi/CPAMM.sol": "CPAMM"
+			"contracts/DeFi/CPAMM2.sol": "CPAMM"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -205,12 +357,28 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/DeFi/CPAMM.sol": {
-			"keccak256": "0x24d4298e88625d33e6acba9cd0d561d767938b188d19c897f8d1125ab4ef7761",
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x9750c6b834f7b43000631af5cc30001c5f547b3ceb3635488f140f60e897ea6b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://598727faa441f47d2746ca07abc84b363c2f705d89661613ceb948944b5b0b2e",
-				"dweb:/ipfs/QmSYSDZTpdzrnh7kDPbZECy2gaJraNQPmPoLcnXHTWYsDV"
+				"bzz-raw://5a7d5b1ef5d8d5889ad2ed89d8619c09383b80b72ab226e0fe7bde1636481e34",
+				"dweb:/ipfs/QmebXWgtEfumQGBdVeM6c71McLixYXQP5Bk6kKXuoY4Bmr"
+			]
+		},
+		"@openzeppelin/contracts/utils/math/SafeMath.sol": {
+			"keccak256": "0x0f633a0223d9a1dcccfcf38a64c9de0874dfcbfac0c6941ccf074d63a2ce0e1e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://864a40efcffdf408044c332a5aa38ec5618ed7b4eecb8f65faf45671bd6cdc65",
+				"dweb:/ipfs/QmQJquTMtc6fgm5JQzGdsGpA2fqBe3MHWEdt2qzaLySMdN"
+			]
+		},
+		"contracts/DeFi/CPAMM2.sol": {
+			"keccak256": "0xae92dea0a36351056b6035d705d9285b84908e454451b9af50dd04a76145ae82",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2c3986a0235590b4c58ede6a543a28705236bf7bcfdc449652dd40dd1b3482d6",
+				"dweb:/ipfs/QmR9S3zDVSCa3M5QZkfWi5mGgzYeA8JpXBHyGdSUyD7bTh"
 			]
 		}
 	},

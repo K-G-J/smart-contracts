@@ -919,11 +919,11 @@
 			]
 		},
 		"contracts/NFT/RandomSVG.sol": {
-			"keccak256": "0x6495d83314a0dbae3b25fb05a2727d720a57308d799235efa9975693467636a8",
+			"keccak256": "0x7017213b6f535ee22a3b1bca83d7303aae60edbc4fba0939ae6716288e122c88",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://44d675b72001b31550b539173440d317142a9ff1962d89bef81a365708bcbc55",
-				"dweb:/ipfs/QmaCh8rcv5qQdzQFv1pB2KijHLJCtzBTKEBK8borc89f6k"
+				"bzz-raw://28c974810f439117e88e20eee7a599d402ef8da32c3c670396c403a150d7ab01",
+				"dweb:/ipfs/QmYUanmaRKqHVBFwRqEVfzGL2EBRp3tFaUJCaXEg6tQQ9p"
 			]
 		}
 	},
