@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.15+commit.e14f2714"
+		"version": "0.8.13+commit.abaa5c0e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -202,7 +202,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DeFi/CPAMM.sol": "IERC20"
+			"contracts/DeFi/IERC20.sol": "IERC20"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -216,12 +216,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/DeFi/CPAMM.sol": {
-			"keccak256": "0x24d4298e88625d33e6acba9cd0d561d767938b188d19c897f8d1125ab4ef7761",
+		"contracts/DeFi/IERC20.sol": {
+			"keccak256": "0xb27b21c464cb6cc1efdb3fca56b2184717f9fd09bf45b52abb7abf4376eb3a20",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://598727faa441f47d2746ca07abc84b363c2f705d89661613ceb948944b5b0b2e",
-				"dweb:/ipfs/QmSYSDZTpdzrnh7kDPbZECy2gaJraNQPmPoLcnXHTWYsDV"
+				"bzz-raw://58ae74b7afe25dafe959b0d1c0e8a8af956e4f8fce509508e546a7d37ec79ec8",
+				"dweb:/ipfs/QmbsXzvFi1Bw7Q97YdXGvDuypnS8roePPyHp23VVrhU4gX"
 			]
 		}
 	},
