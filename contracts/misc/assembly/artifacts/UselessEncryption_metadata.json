@@ -1,0 +1,70 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_input",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "_decrypt",
+						"type": "bool"
+					}
+				],
+				"name": "encrypt",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/misc/assembly/UselessEncryption.sol": "UselessEncryption"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/misc/assembly/UselessEncryption.sol": {
+			"keccak256": "0x687ad5957b86e58b046aac99b61fb88b2b9a78488f624f91077cd30c69f46942",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://8da09277dc36a433f68b412c739006d6e7434f78722a4b04647d7366c4d02165",
+				"dweb:/ipfs/Qme2XoGTLFb6oWjic5fabZMbxcd4CoyiNWV28wL2oZhzbj"
+			]
+		}
+	},
+	"version": 1
+}

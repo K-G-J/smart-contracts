@@ -1,0 +1,64 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "withdrawETH",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/misc/assembly/SendETH.sol": "SendEth"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/misc/assembly/SendETH.sol": {
+			"keccak256": "0xdb1eed30c44d7acc47983bbb3d7988c0a4a3df06734485eadd1637b6972340db",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://05d61debb612114cfd96fae521f2354aae27186bce77d424387b3853b9d4cb39",
+				"dweb:/ipfs/QmYYxqgyeQqJoyHxzdBHXrKmvfv56VwxAY7acyiaAY5jf7"
+			]
+		}
+	},
+	"version": 1
+}

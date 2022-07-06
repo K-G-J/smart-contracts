@@ -1,0 +1,71 @@
+{
+	"id": "b4654a3e375177bbb0c8c1a1ba0c1031",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.7",
+	"solcLongVersion": "0.8.7+commit.e28d00a7",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"contracts/misc/assembly/StoringData.sol": {
+				"content": "// SPDX-License-Identifier: GPL-3.0"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": false,
+				"runs": 200
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"storageLayout",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			}
+		}
+	},
+	"output": {
+		"errors": [
+			{
+				"component": "general",
+				"errorCode": "3420",
+				"formattedMessage": "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.7;\"\n--> contracts/misc/assembly/StoringData.sol\n\n",
+				"message": "Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.7;\"",
+				"severity": "warning",
+				"sourceLocation": {
+					"end": -1,
+					"file": "contracts/misc/assembly/StoringData.sol",
+					"start": -1
+				},
+				"type": "Warning"
+			}
+		],
+		"sources": {
+			"contracts/misc/assembly/StoringData.sol": {
+				"ast": {
+					"absolutePath": "contracts/misc/assembly/StoringData.sol",
+					"exportedSymbols": {},
+					"id": 1,
+					"license": "GPL-3.0",
+					"nodeType": "SourceUnit",
+					"nodes": [],
+					"src": "35:0:0"
+				},
+				"id": 0
+			}
+		}
+	}
+}
