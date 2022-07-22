@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.15+commit.e14f2714"
+		"version": "0.8.7+commit.e28d00a7"
 	},
 	"language": "Solidity",
 	"output": {
@@ -74,7 +74,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/utils/Create2Example2.sol": "TestContract"
+			"contracts/utils/Create2Assembly.sol": "TestContract"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -88,7 +88,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/utils/Create2Example2.sol": {
+		"contracts/utils/Create2Assembly.sol": {
 			"keccak256": "0x137ea15fabb07d8bb151276be55cf65cbf5a53ac2a8647ec1e19a11248dd8094",
 			"license": "MIT",
 			"urls": [
