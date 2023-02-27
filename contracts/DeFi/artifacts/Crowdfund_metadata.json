@@ -1,0 +1,564 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "Cancel",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "Claim",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint8",
+						"name": "version",
+						"type": "uint8"
+					}
+				],
+				"name": "Initialized",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "goal",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint32",
+						"name": "startAt",
+						"type": "uint32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint32",
+						"name": "endAt",
+						"type": "uint32"
+					}
+				],
+				"name": "Launch",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "caller",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "Pledged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "caller",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "Refund",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "caller",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "Unpledged",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "campaigns",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "goal",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "pledged",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint32",
+						"name": "startAt",
+						"type": "uint32"
+					},
+					{
+						"internalType": "uint32",
+						"name": "endAt",
+						"type": "uint32"
+					},
+					{
+						"internalType": "bool",
+						"name": "claimed",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "cancelled",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "cancel",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "claim",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "count",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "_token",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_minDuration",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_maxDuration",
+						"type": "uint256"
+					}
+				],
+				"name": "initialize",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_goal",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint32",
+						"name": "_startAt",
+						"type": "uint32"
+					},
+					{
+						"internalType": "uint32",
+						"name": "_endAt",
+						"type": "uint32"
+					}
+				],
+				"name": "launch",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "maxDuration",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "minDuration",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "pledge",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "pledgedAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "refund",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "token",
+				"outputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "unpledge",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"events": {
+				"Initialized(uint8)": {
+					"details": "Triggered when the contract has been initialized or reinitialized."
+				}
+			},
+			"kind": "dev",
+			"methods": {
+				"cancel(uint256)": {
+					"details": "function called by campaign creator to cancel a crowdfunding campaign",
+					"params": {
+						"_id": "- the uinique uint256 id of the campaign to be cancelled"
+					}
+				},
+				"claim(uint256)": {
+					"details": "function called by campaign creator to receive fundscaller must be creator, creator cannot have cancelled the campaign, campaign must have passed end at time, the campaign goal must have been met or exceededthis function can only be called once by creator",
+					"params": {
+						"_id": "- the uinique uint256 id of the campaign which funds are claimed"
+					}
+				},
+				"initialize(address,uint256,uint256)": {
+					"details": "dunction from @openzeppelin to initialize this as the base contract for upgradesmust be the first function called"
+				},
+				"launch(uint256,uint32,uint32)": {
+					"details": "function called by campaign creator to create the crowdfunding campaign and add Campaign to mapping",
+					"params": {
+						"_endAt": "- the block.timestamp at which the campaign will end (note: must be >= starting time + minDuration and <= starting time + maxDuration)",
+						"_goal": "- the amount of tokens the campaign aims to receive",
+						"_startAt": "- the time the campaign will begin (note: _startAt time is passed in by creator and not necessarily the time the creator calls the launch function)"
+					}
+				},
+				"pledge(uint256,uint256)": {
+					"details": "function to transfer tokens from pledger into the contractsender must first call approve on the ERC20 token for this contract address and _amountcampaign must not be cancelled, must be within startAt and endAt times",
+					"params": {
+						"_amount": "- the amount of tokens trasferred from pledger into contract",
+						"_id": "- the uinique uint256 id of the campaign to be pledged"
+					}
+				},
+				"refund(uint256)": {
+					"details": "function to refund ALL the pledged tokens from pledger in this contract back to the pledger AFTER a campaign has ended and failedwhen a funding goal is not met, pledgers are be able to get a refund of their pledged funds",
+					"params": {
+						"_id": "- the uinique uint256 id of the campaign to refund from"
+					}
+				},
+				"unpledge(uint256,uint256)": {
+					"details": "function for pledger to unpledge their tokens and receive them back BEFORE a campaign has ended (ex: unpledge if campaign cancelled before end time)pledger specifies amount of tokens to unpledge, if a campaign has ended and not met goal, pledger then calls refund function to receive all tokens back",
+					"params": {
+						"_amount": "- the amount of tokens transferred from contract back to pledger",
+						"_id": "- the uinique uint256 id of the campaign to be unpledged"
+					}
+				}
+			},
+			"stateVariables": {
+				"campaigns": {
+					"details": "mapping of id to Campaign struct"
+				},
+				"count": {
+					"details": "used to track and update unique campaign ids"
+				},
+				"maxDuration": {
+					"details": "maximum and minimum length of times a campaign can be Set in initalize function"
+				},
+				"pledgedAmount": {
+					"details": "mapping of campaign id to pledger to amount pledged"
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"events": {
+				"Launch(uint256,address,uint256,uint32,uint32)": {
+					"notice": "dApps using the contract can observe state changes in transaction logs"
+				}
+			},
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/DeFi/CrowdfundV2.sol": "Crowdfund"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol": {
+			"keccak256": "0x037c334add4b033ad3493038c25be1682d78c00992e1acb0e2795caff3925271",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8a313cf42389440e2706837c91370323b85971c06afd6d056d21e2bc86459618",
+				"dweb:/ipfs/QmT8XUrUvQ9aZaPKrqgRU2JVGWnaxBcUYJA7Q7K5KcLBSZ"
+			]
+		},
+		"@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol": {
+			"keccak256": "0x2edcb41c121abc510932e8d83ff8b82cf9cdde35e7c297622f5c29ef0af25183",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://72460c66cd1c3b1c11b863e0d8df0a1c56f37743019e468dc312c754f43e3b06",
+				"dweb:/ipfs/QmPExYKiNb9PUsgktQBupPaM33kzDHxaYoVeJdLhv8s879"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x9750c6b834f7b43000631af5cc30001c5f547b3ceb3635488f140f60e897ea6b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5a7d5b1ef5d8d5889ad2ed89d8619c09383b80b72ab226e0fe7bde1636481e34",
+				"dweb:/ipfs/QmebXWgtEfumQGBdVeM6c71McLixYXQP5Bk6kKXuoY4Bmr"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/extensions/draft-IERC20Permit.sol": {
+			"keccak256": "0xf41ca991f30855bf80ffd11e9347856a517b977f0a6c2d52e6421a99b7840329",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b2717fd2bdac99daa960a6de500754ea1b932093c946388c381da48658234b95",
+				"dweb:/ipfs/QmP6QVMn6UeA3ByahyJbYQr5M6coHKBKsf3ySZSfbyA8R7"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol": {
+			"keccak256": "0x9b72f93be69ca894d8492c244259615c4a742afc8d63720dbc8bb81087d9b238",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f5a7b96e511be78d5cdf635c784e6ab8cdd38625bb8cafb8a80914a1c89cf0f6",
+				"dweb:/ipfs/QmVzTCwJxQAkjRQHboT5QrvsVJGWQHgfEjeTbvyxoKBrds"
+			]
+		},
+		"@openzeppelin/contracts/utils/Address.sol": {
+			"keccak256": "0x2ccf9d2313a313d41a791505f2b5abfdc62191b5d4334f7f7a82691c088a1c87",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b3a57d0854b2fdce6ebff933a48dca2445643d1eccfc27f00292e937f26c6a58",
+				"dweb:/ipfs/QmW45rZooS9TqR4YXUbjRbtf2Bpb5ouSarBvfW1LdGprvV"
+			]
+		},
+		"contracts/DeFi/CrowdfundV2.sol": {
+			"keccak256": "0xe600e3abd5f2c84931d4ec1ba914b946f4f22ac89f2df6ed771b91b9ed7d75c1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://149ac58e6c94fb9c103cb8e8e8ad4272e5caa32e6dd8aedf6403b08f6f9a7d2a",
+				"dweb:/ipfs/QmRMW1SjWDmgHU717DwTdS9oDpNDZquMM4w7Nwenvjm1Ve"
+			]
+		}
+	},
+	"version": 1
+}
