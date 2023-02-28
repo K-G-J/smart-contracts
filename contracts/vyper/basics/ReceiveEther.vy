@@ -17,3 +17,5 @@ event Payment:
 @payable
 def __default__():
     log Payment(msg.sender, msg.value, self.balance, msg.gas)
+
+# default function like "fallback" in Solidity

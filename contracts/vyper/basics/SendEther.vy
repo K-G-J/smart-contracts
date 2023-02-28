@@ -14,3 +14,5 @@ send Ether from contract to another address
 @payable
 def sendEther(to: address):
     send(to, msg.value)
+
+# send function works like transfer function in Solidity
