@@ -1,0 +1,94 @@
+{
+	"compiler": {
+		"version": "0.7.6+commit.7338295f"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "x",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "y",
+						"type": "uint256"
+					}
+				],
+				"name": "Log",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "x",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "y",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "xs",
+						"type": "uint256[]"
+					}
+				],
+				"name": "test",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/vyper/basics/RawCallReceiver.sol": "RawCallReceiver"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/vyper/basics/RawCallReceiver.sol": {
+			"keccak256": "0x6f14dceb014177ab57482d62c6efe89003bec1d4410e3047f4cabdd1df6a5058",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://2ad0170aa61a7db7ff4c1189fbf962fbf4bc918da54f1667218204ced03733f1",
+				"dweb:/ipfs/QmccxhjhYHENFfdoxcWZ4dU1AhYtjZvEEJuXompL9hWpRv"
+			]
+		}
+	},
+	"version": 1
+}
