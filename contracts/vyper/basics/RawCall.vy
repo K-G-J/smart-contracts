@@ -1,4 +1,4 @@
-# @verzion ^0.2
+# @version ^0.2
 
 event Log:
     message: String[100]
