@@ -1,0 +1,65 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "x",
+						"type": "uint256"
+					}
+				],
+				"name": "mostSignificantBit",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "msb",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/misc/assembly/MostSignificantBit.sol": "MostSignificantBitAssembly"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/misc/assembly/MostSignificantBit.sol": {
+			"keccak256": "0x2b0b6478f21f6480df4ccd845d1fb4de54f0e7c88f144eb81af1d13d94a1bb1e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2d1153a39a799ede286f21bbcbcd1aff0232dd12051d78dca0f18d7de20ed76b",
+				"dweb:/ipfs/QmUFzixgjG6VZiK5AEAbmQcgddLx2ytT1DMQvd949tVX4H"
+			]
+		}
+	},
+	"version": 1
+}
