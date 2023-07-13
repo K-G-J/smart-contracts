@@ -1,0 +1,56 @@
+{
+	"compiler": {
+		"version": "0.4.26+commit.4563c3fc"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "data",
+						"type": "uint256[]"
+					}
+				],
+				"name": "sort",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/utils/QuickSort.sol": "QuickSort"
+		},
+		"evmVersion": "byzantium",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/utils/QuickSort.sol": {
+			"keccak256": "0x27c712e4c4f66887763d65e065a1091cfd5c1c9fd507d17fbefb7d3389775d0d",
+			"urls": [
+				"bzzr://10c997944f780cd3c2ac3539bc7f6ef7c543654d21b81facdc6ed61b3f21bb50"
+			]
+		}
+	},
+	"version": 1
+}
